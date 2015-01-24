@@ -277,7 +277,7 @@ void CACHE_REPLACEMENT_STATE::SetDuelingMonitorDRRIP( UINT32 setIndex, bool cach
     	if (PSEL==0)
     		return;
     	PSEL--;
-    	return
+    	return;
     }
 
     // If we reach here there was an error
