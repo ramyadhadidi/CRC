@@ -260,7 +260,7 @@ INT32 CACHE_REPLACEMENT_STATE::Get_RRIP_Victim( UINT32 setIndex )
     INT32 srripway = 0;
 
     // Search for the Victim
-    for(INT32 way=0; way<assoc; way++)
+    for(UINT32 way=0; way<assoc;)
     {	
     	// Find if there is a Line with RRIP_MAX
     	if( replSet[way].RRVP == RRIP_MAX ) 
@@ -269,29 +269,18 @@ INT32 CACHE_REPLACEMENT_STATE::Get_RRIP_Victim( UINT32 setIndex )
     		break;
     	}
 
+    	way++;
     	// If reaches here, Means There is no RRIP_MAX
     	// So Increase all by One and Retry
-    	if (way == assoc -1) 
+    	if (way == assoc) 
     	{
     		for(UINT32 way_second=0; way_second<assoc; way_second++)
     			replSet[way_second].RRVP++;
- 			way=-1;
+ 			way=0;
     	}
     }
     
     return srripway;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//                                                                            //
-// This function finds a random victim in the cache set                       //
-//                                                                            //
-////////////////////////////////////////////////////////////////////////////////
-INT32 CACHE_REPLACEMENT_STATE::Get_BRRIP_Victim( UINT32 setIndex )
-{
-    INT32 way;
-    
-    return way;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
