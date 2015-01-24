@@ -65,6 +65,8 @@ void CACHE_REPLACEMENT_STATE::InitReplacementState()
         {
             // initialize stack position (for true LRU)
             repl[ setIndex ][ way ].LRUstackposition = way;
+            //	initialize RRVP for RRIP policy
+            repl[ setIndex][ way ].RRVP = RRIP_MAX;
         }
     }
 
@@ -122,6 +124,12 @@ INT32 CACHE_REPLACEMENT_STATE::GetVictimInSet( UINT32 tid, UINT32 setIndex, cons
     {
         return Get_Random_Victim( setIndex );
     }
+    else if ( replPolicy == CRC_REPL_DRRIP ) {
+
+    }
+    else if ( replPolicy == CRC_REPL_SHIP ) {
+    	
+    } 
     else if( replPolicy == CRC_REPL_CONTESTANT )
     {
         // Contestants:  ADD YOUR VICTIM SELECTION FUNCTION HERE
@@ -155,6 +163,12 @@ void CACHE_REPLACEMENT_STATE::UpdateReplacementState(
     else if( replPolicy == CRC_REPL_RANDOM )
     {
         // Random replacement requires no replacement state update
+    }
+    else if ( replPolicy == CRC_REPL_DRRIP ) {
+
+    }
+    else if ( replPolicy == CRC_REPL_SHIP ) {
+    	
     }
     else if( replPolicy == CRC_REPL_CONTESTANT )
     {
@@ -237,6 +251,18 @@ void CACHE_REPLACEMENT_STATE::UpdateLRU( UINT32 setIndex, INT32 updateWayID )
 
     // Set the LRU stack position of new line to be zero
     repl[ setIndex ][ updateWayID ].LRUstackposition = 0;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//                                                                            //
+// This function implements the SRRIP update routine with Hit Priority (HP).  //
+// On a hit RRPV will be 0. On a miss it will search for RRIP_MAX from start, //
+// if found, replace the new block. If not increament all RRPV in that set    //
+// and try again. The RRVP value of new inserted block is RRIP_MAX-1.		  //
+////////////////////////////////////////////////////////////////////////////////
+void CACHE_REPLACEMENT_STATE::UpdateSRRIP( UINT32 setIndex, INT32 updateWayID )
+{
+    
 }
 
 ////////////////////////////////////////////////////////////////////////////////

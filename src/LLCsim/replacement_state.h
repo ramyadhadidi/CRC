@@ -51,6 +51,7 @@ typedef struct
     UINT32  LRUstackposition;
 
     // CONTESTANTS: Add extra state per cache line here
+    UINT32 RRVP;
 
 } LINE_REPLACEMENT_STATE;
 
