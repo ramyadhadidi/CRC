@@ -93,7 +93,7 @@ class CACHE_REPLACEMENT_STATE
     void   InitReplacementState();
 
     INT32  Get_Random_Victim( UINT32 setIndex );
-    INT32  Get_RRIP_Victim( UINT32 setIndex )
+    INT32  Get_RRIP_Victim( UINT32 setIndex );
     INT32  Get_LRU_Victim( UINT32 setIndex );
 
     void   UpdateLRU( UINT32 setIndex, INT32 updateWayID );

@@ -86,11 +86,11 @@ void CACHE_REPLACEMENT_STATE::InitReplacementState()
         do { setNo = rand() % numsets;
         } while(duel.find(setNo)!=duel.end());
         if (iteration%2) {
-            duel[setNo] = SDM_LEADER_A;
+            duel[setNo] = SDM_LEADER_SRRIP;
             setDuelingType[setNo] = SDM_LEADER_SRRIP; 
         }
         else {
-            duel[setNo] = SDM_LEADER_B;
+            duel[setNo] = SDM_LEADER_BRRIP;
             setDuelingType[setNo] = SDM_LEADER_BRRIP;
         }
     }
@@ -130,7 +130,7 @@ INT32 CACHE_REPLACEMENT_STATE::GetVictimInSet( UINT32 tid, UINT32 setIndex, cons
     else if ( replPolicy == CRC_REPL_DRRIP ) 
     {
     	//Victim Selection is Same Acorss all Policies
-    	return Get_RRIP_Victim(UINT32 setIndex);
+    	return Get_RRIP_Victim(setIndex);
     }
     else if ( replPolicy == CRC_REPL_SHIP ) {
     	
@@ -174,11 +174,11 @@ void CACHE_REPLACEMENT_STATE::UpdateReplacementState(
     	//Victim Selection Base on Duels
     	if (setDuelingType[setIndex] == SDM_LEADER_SRRIP)
     	{
-    		return Get_SRRIP_Victim(UINT32 setIndex);
+    		
     	}
     	if (setDuelingType[setIndex] == SDM_LEADER_BRRIP)
     	{
-    		return Get_BRRIP_Victim(UINT32 setIndex);
+    		
     	}
     	else //(SDM_FOLLOWER)
     	{
