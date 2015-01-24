@@ -26,8 +26,18 @@ typedef enum
 {
     CRC_REPL_LRU        = 0,
     CRC_REPL_RANDOM     = 1,
-    CRC_REPL_CONTESTANT = 2
+    CRC_REPL_DRRIP      = 2,
+    CRC_REPL_SHIP       = 3,
+    CRC_REPL_CONTESTANT = 4
 } ReplacemntPolicy;
+
+// Type of Set for SetDueling
+typedef enum 
+{
+    SMD_LEADER_A        = 0,
+    SMD_LEADER_B        = 1,
+    SMD_FOLLOWER        = 2
+} SetDuelingType;
 
 // Replacement State Per Cache Line
 typedef struct

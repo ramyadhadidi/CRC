@@ -70,6 +70,8 @@ void CACHE_REPLACEMENT_STATE::InitReplacementState()
 
     // Contestants:  ADD INITIALIZATION FOR YOUR HARDWARE HERE
 
+    
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
