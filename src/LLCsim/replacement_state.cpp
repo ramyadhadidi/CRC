@@ -173,20 +173,8 @@ void CACHE_REPLACEMENT_STATE::UpdateReplacementState(
     {
 		//Monitoring Set Dueling
 		SetDuelingMonitorDRRIP(setIndex, cacheHit);
-
-    	//Update Based on Duels
-    	if (setDuelingType[setIndex] == SDM_LEADER_SRRIP)
-    	{
-    		
-    	}
-    	if (setDuelingType[setIndex] == SDM_LEADER_BRRIP)
-    	{
-    		
-    	}
-    	else //(SDM_FOLLOWER)
-    	{
-
-    	}
+		//Update RRIP (both SRRIP and BRRIP)
+		UpdateRRIP( setIndex, updateWayID, cacheHit );
     }
     else if ( replPolicy == CRC_REPL_SHIP ) 
     {
@@ -297,7 +285,7 @@ INT32 CACHE_REPLACEMENT_STATE::Get_RRIP_Victim( UINT32 setIndex )
     // Get pointer to replacement state of current set
     LINE_REPLACEMENT_STATE *replSet = repl[ setIndex ];
 
-    INT32 srripway = 0;
+    INT32 rripway = 0;
 
     // Search for the Victim
     for(UINT32 way=0; way<assoc;)
@@ -305,7 +293,7 @@ INT32 CACHE_REPLACEMENT_STATE::Get_RRIP_Victim( UINT32 setIndex )
     	// Find if there is a Line with RRIP_MAX
     	if( replSet[way].RRVP == RRIP_MAX ) 
     	{
-    		srripway = way;
+    		rripway = way;
     		break;
     	}
 
@@ -320,7 +308,7 @@ INT32 CACHE_REPLACEMENT_STATE::Get_RRIP_Victim( UINT32 setIndex )
     	}
     }
     
-    return srripway;
+    return rripway;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -351,15 +339,63 @@ void CACHE_REPLACEMENT_STATE::UpdateLRU( UINT32 setIndex, INT32 updateWayID )
 
 ////////////////////////////////////////////////////////////////////////////////
 //                                                                            //
-// This function implements the SRRIP update routine with Hit Priority (HP).  //
-// On a hit RRPV will be 0. On a miss it will search for RRIP_MAX from start, //
-// if found, replace the new block. If not increament all RRPV in that set    //
-// and try again. The RRVP value of new inserted block is RRIP_MAX-1.		  //
+// This function implements the RRIP update routine with Hit Priority (HP).	  //
+// Also BRRIP with BIOMODAL_PROBABILITY constant.   						  //
+// On a hit RRPV will be 0. On a miss it will based on Viction selection we   //
+// kick-out the line and insert the new line with RRIP_MAX-1 or with Biomodal //
+// probability with RRIP_MAX-2. We update all type of set in this function.	  //
 //																			  //
 ////////////////////////////////////////////////////////////////////////////////
-void CACHE_REPLACEMENT_STATE::UpdateSRRIP( UINT32 setIndex, INT32 updateWayID )
+void CACHE_REPLACEMENT_STATE::UpdateRRIP( UINT32 setIndex, INT32 updateWayID, bool cacheHit )
 {
-    
+	//On Hit all Dueling Policies to the same
+	if (cacheHit)
+	{
+		repl[ setIndex ][ updateWayID ].RRVP = 0;
+		return;
+	}  
+
+	//If Miss
+	//Update Based on Duels
+	//Static RRIP
+	//1.Leader Set
+	if (setDuelingType[setIndex] == SDM_LEADER_SRRIP)
+	{
+		repl[ setIndex ][ updateWayID ].RRVP == RRIP_MAX-1;
+		return;	
+	}
+
+	//2.Leader Set
+	if (setDuelingType[setIndex] == SDM_LEADER_BRRIP)
+	{
+		if (rand()%1000 < BIOMODAL_PROBABILITY)
+			repl[ setIndex ][ updateWayID ].RRVP == RRIP_MAX-2;
+		else
+			repl[ setIndex ][ updateWayID ].RRVP == RRIP_MAX-1;
+		return;
+	}
+
+	//3.Follower
+	else //(SDM_FOLLOWER)
+	{
+		//PSEL high shows high misses in SRRIP so we choose
+		//BRRIP
+		if (PSEL > PSEL_MAX/2)
+		{
+			if (rand()%1000 < BIOMODAL_PROBABILITY)
+				repl[ setIndex ][ updateWayID ].RRVP == RRIP_MAX-2;
+			else
+				repl[ setIndex ][ updateWayID ].RRVP == RRIP_MAX-1;
+			return;
+		}
+		//SRRIP
+		else
+		{
+			repl[ setIndex ][ updateWayID ].RRVP == RRIP_MAX-1;
+			return;	
+		}
+
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////

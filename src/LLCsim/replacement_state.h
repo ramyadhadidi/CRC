@@ -26,6 +26,7 @@
 #define NumLeaderSets   64
 #define RRIP_MAX        3
 #define PSEL_MAX        15
+#define BIOMODAL_PROBABILITY    10   //[1 means 0.1%/10 means 1%] of all times
 
 // Replacement Policies Supported
 typedef enum 
@@ -97,7 +98,7 @@ class CACHE_REPLACEMENT_STATE
     INT32  Get_LRU_Victim( UINT32 setIndex );
 
     void   UpdateLRU( UINT32 setIndex, INT32 updateWayID );
-    void   UpdateSRRIP( UINT32 setIndex, INT32 updateWayID );
+    void   UpdateRRIP( UINT32 setIndex, INT32 updateWayID, bool cacheHit );
     void   SetDuelingMonitorDRRIP( UINT32 setIndex, bool cacheHit );
 };
 
