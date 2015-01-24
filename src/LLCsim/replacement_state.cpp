@@ -361,7 +361,7 @@ void CACHE_REPLACEMENT_STATE::UpdateRRIP( UINT32 setIndex, INT32 updateWayID, bo
 	//1.Leader Set
 	if (setDuelingType[setIndex] == SDM_LEADER_SRRIP)
 	{
-		repl[ setIndex ][ updateWayID ].RRVP == RRIP_MAX-1;
+		repl[ setIndex ][ updateWayID ].RRVP = RRIP_MAX-1;
 		return;	
 	}
 
@@ -369,9 +369,9 @@ void CACHE_REPLACEMENT_STATE::UpdateRRIP( UINT32 setIndex, INT32 updateWayID, bo
 	if (setDuelingType[setIndex] == SDM_LEADER_BRRIP)
 	{
 		if (rand()%1000 < BIOMODAL_PROBABILITY)
-			repl[ setIndex ][ updateWayID ].RRVP == RRIP_MAX-2;
+			repl[ setIndex ][ updateWayID ].RRVP = RRIP_MAX-2;
 		else
-			repl[ setIndex ][ updateWayID ].RRVP == RRIP_MAX-1;
+			repl[ setIndex ][ updateWayID ].RRVP = RRIP_MAX-1;
 		return;
 	}
 
@@ -383,15 +383,15 @@ void CACHE_REPLACEMENT_STATE::UpdateRRIP( UINT32 setIndex, INT32 updateWayID, bo
 		if (PSEL > PSEL_MAX/2)
 		{
 			if (rand()%1000 < BIOMODAL_PROBABILITY)
-				repl[ setIndex ][ updateWayID ].RRVP == RRIP_MAX-2;
+				repl[ setIndex ][ updateWayID ].RRVP = RRIP_MAX-2;
 			else
-				repl[ setIndex ][ updateWayID ].RRVP == RRIP_MAX-1;
+				repl[ setIndex ][ updateWayID ].RRVP = RRIP_MAX-1;
 			return;
 		}
 		//SRRIP
 		else
 		{
-			repl[ setIndex ][ updateWayID ].RRVP == RRIP_MAX-1;
+			repl[ setIndex ][ updateWayID ].RRVP = RRIP_MAX-1;
 			return;	
 		}
 
