@@ -18,8 +18,14 @@
 
 #include <cstdlib>
 #include <cassert>
+#include <map>
 #include "utils.h"
 #include "crc_cache_defs.h"
+
+//DRRIP Defines
+#define NumLeaderSets   64
+#define RRIP_MAX        3
+#define PSEL_MAX        15
 
 // Replacement Policies Supported
 typedef enum 
@@ -31,13 +37,13 @@ typedef enum
     CRC_REPL_CONTESTANT = 4
 } ReplacemntPolicy;
 
-// Type of Set for SetDueling
-typedef enum 
+// Set Type for Dueling
+typedef enum
 {
-    SMD_LEADER_A        = 0,
-    SMD_LEADER_B        = 1,
-    SMD_FOLLOWER        = 2
-} SetDuelingType;
+    SDM_LEADER_A        = 0,
+    SDM_LEADER_B        = 1,
+    SDM_FOLLOWER        = 2
+} TypeSetForDueling;
 
 // Replacement State Per Cache Line
 typedef struct
@@ -63,6 +69,7 @@ class CACHE_REPLACEMENT_STATE
     COUNTER mytimer;  // tracks # of references to the cache
 
     // CONTESTANTS:  Add extra state for cache here
+    UINT32  *setDuelingType;
 
   public:
 

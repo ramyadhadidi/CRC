@@ -69,8 +69,29 @@ void CACHE_REPLACEMENT_STATE::InitReplacementState()
     }
 
     // Contestants:  ADD INITIALIZATION FOR YOUR HARDWARE HERE
-
     
+    // Set Dueling Initialization
+    setDuelingType = new UINT32 [numsets];
+    std::map<UINT32,UINT32> duel;
+    std::map<UINT32,UINT32>::iterator itMap;
+
+    for (UINT32 setIndex=0; setIndex<numsets; setIndex++)
+        setDuelingType[setIndex] = SDM_FOLLOWER;
+
+    // Create Leader Sets Randomely
+    for (UINT32 iteration=0; iteration<NumLeaderSets; iteration++) {
+        UINT32 setNo;
+        do { setNo = rand() % numsets;
+        } while(duel.find(setNo)!=duel.end());
+        if (iteration%2) {
+            duel[setNo] = SDM_LEADER_A;
+            setDuelingType[setNo] = SDM_LEADER_A; 
+        }
+        else {
+            duel[setNo] = SDM_LEADER_B;
+            setDuelingType[setNo] = SDM_LEADER_B;
+        }
+    }
 
 }
 
