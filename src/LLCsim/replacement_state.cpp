@@ -87,13 +87,16 @@ void CACHE_REPLACEMENT_STATE::InitReplacementState()
         } while(duel.find(setNo)!=duel.end());
         if (iteration%2) {
             duel[setNo] = SDM_LEADER_A;
-            setDuelingType[setNo] = SDM_LEADER_A; 
+            setDuelingType[setNo] = SDM_LEADER_SRRIP; 
         }
         else {
             duel[setNo] = SDM_LEADER_B;
-            setDuelingType[setNo] = SDM_LEADER_B;
+            setDuelingType[setNo] = SDM_LEADER_BRRIP;
         }
     }
+
+    //PSEL Initialization for DRRIP
+    PSEL = 0;
 
 }
 
@@ -124,8 +127,10 @@ INT32 CACHE_REPLACEMENT_STATE::GetVictimInSet( UINT32 tid, UINT32 setIndex, cons
     {
         return Get_Random_Victim( setIndex );
     }
-    else if ( replPolicy == CRC_REPL_DRRIP ) {
-
+    else if ( replPolicy == CRC_REPL_DRRIP ) 
+    {
+    	//Victim Selection is Same Acorss all Policies
+    	return Get_RRIP_Victim(UINT32 setIndex);
     }
     else if ( replPolicy == CRC_REPL_SHIP ) {
     	
@@ -164,10 +169,24 @@ void CACHE_REPLACEMENT_STATE::UpdateReplacementState(
     {
         // Random replacement requires no replacement state update
     }
-    else if ( replPolicy == CRC_REPL_DRRIP ) {
+    else if ( replPolicy == CRC_REPL_DRRIP ) 
+    {
+    	//Victim Selection Base on Duels
+    	if (setDuelingType[setIndex] == SDM_LEADER_SRRIP)
+    	{
+    		return Get_SRRIP_Victim(UINT32 setIndex);
+    	}
+    	if (setDuelingType[setIndex] == SDM_LEADER_BRRIP)
+    	{
+    		return Get_BRRIP_Victim(UINT32 setIndex);
+    	}
+    	else //(SDM_FOLLOWER)
+    	{
 
+    	}
     }
-    else if ( replPolicy == CRC_REPL_SHIP ) {
+    else if ( replPolicy == CRC_REPL_SHIP ) 
+    {
     	
     }
     else if( replPolicy == CRC_REPL_CONTESTANT )
@@ -227,6 +246,54 @@ INT32 CACHE_REPLACEMENT_STATE::Get_Random_Victim( UINT32 setIndex )
     return way;
 }
 
+
+////////////////////////////////////////////////////////////////////////////////
+//                                                                            //
+// This function finds a random victim in the cache set                       //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+INT32 CACHE_REPLACEMENT_STATE::Get_RRIP_Victim( UINT32 setIndex )
+{
+    // Get pointer to replacement state of current set
+    LINE_REPLACEMENT_STATE *replSet = repl[ setIndex ];
+
+    INT32 srripway = 0;
+
+    // Search for the Victim
+    for(INT32 way=0; way<assoc; way++)
+    {	
+    	// Find if there is a Line with RRIP_MAX
+    	if( replSet[way].RRVP == RRIP_MAX ) 
+    	{
+    		srripway = way;
+    		break;
+    	}
+
+    	// If reaches here, Means There is no RRIP_MAX
+    	// So Increase all by One and Retry
+    	if (way == assoc -1) 
+    	{
+    		for(UINT32 way_second=0; way_second<assoc; way_second++)
+    			replSet[way_second].RRVP++;
+ 			way=-1;
+    	}
+    }
+    
+    return srripway;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//                                                                            //
+// This function finds a random victim in the cache set                       //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+INT32 CACHE_REPLACEMENT_STATE::Get_BRRIP_Victim( UINT32 setIndex )
+{
+    INT32 way;
+    
+    return way;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 //                                                                            //
 // This function implements the LRU update routine for the traditional        //
@@ -259,6 +326,7 @@ void CACHE_REPLACEMENT_STATE::UpdateLRU( UINT32 setIndex, INT32 updateWayID )
 // On a hit RRPV will be 0. On a miss it will search for RRIP_MAX from start, //
 // if found, replace the new block. If not increament all RRPV in that set    //
 // and try again. The RRVP value of new inserted block is RRIP_MAX-1.		  //
+//																			  //
 ////////////////////////////////////////////////////////////////////////////////
 void CACHE_REPLACEMENT_STATE::UpdateSRRIP( UINT32 setIndex, INT32 updateWayID )
 {

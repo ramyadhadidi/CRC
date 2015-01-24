@@ -37,13 +37,13 @@ typedef enum
     CRC_REPL_CONTESTANT = 4
 } ReplacemntPolicy;
 
-// Set Type for Dueling
+// Set Type for Dueling DRRIP
 typedef enum
 {
-    SDM_LEADER_A        = 0,
-    SDM_LEADER_B        = 1,
+    SDM_LEADER_SRRIP    = 0,
+    SDM_LEADER_BRRIP    = 1,
     SDM_FOLLOWER        = 2
-} TypeSetForDueling;
+} TypeSetForDuelingDRRIP;
 
 // Replacement State Per Cache Line
 typedef struct
@@ -71,10 +71,10 @@ class CACHE_REPLACEMENT_STATE
 
     // CONTESTANTS:  Add extra state for cache here
     UINT32  *setDuelingType;
+    UINT32  PSEL;
 
   public:
 
-    // The constructor CAN NOT be changed
     CACHE_REPLACEMENT_STATE( UINT32 _sets, UINT32 _assoc, UINT32 _pol );
 
     INT32  GetVictimInSet( UINT32 tid, UINT32 setIndex, const LINE_STATE *vicSet, UINT32 assoc, Addr_t PC, Addr_t paddr, UINT32 accessType );
@@ -91,9 +91,11 @@ class CACHE_REPLACEMENT_STATE
   private:
     
     void   InitReplacementState();
-    INT32  Get_Random_Victim( UINT32 setIndex );
 
+    INT32  Get_Random_Victim( UINT32 setIndex );
+    INT32  Get_RRIP_Victim( UINT32 setIndex )
     INT32  Get_LRU_Victim( UINT32 setIndex );
+
     void   UpdateLRU( UINT32 setIndex, INT32 updateWayID );
 };
 
