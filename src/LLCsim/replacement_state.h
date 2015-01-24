@@ -98,6 +98,7 @@ class CACHE_REPLACEMENT_STATE
 
     void   UpdateLRU( UINT32 setIndex, INT32 updateWayID );
     void   UpdateSRRIP( UINT32 setIndex, INT32 updateWayID );
+    void   SetDuelingMonitorDRRIP( UINT32 setIndex, bool cacheHit );
 };
 
 

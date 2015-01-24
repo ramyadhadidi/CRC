@@ -129,7 +129,7 @@ INT32 CACHE_REPLACEMENT_STATE::GetVictimInSet( UINT32 tid, UINT32 setIndex, cons
     }
     else if ( replPolicy == CRC_REPL_DRRIP ) 
     {
-    	//Victim Selection is Same Acorss all Policies
+    	//Victim Selection is Same Acorss all Dueling Policies
     	return Get_RRIP_Victim(setIndex);
     }
     else if ( replPolicy == CRC_REPL_SHIP ) {
@@ -171,7 +171,10 @@ void CACHE_REPLACEMENT_STATE::UpdateReplacementState(
     }
     else if ( replPolicy == CRC_REPL_DRRIP ) 
     {
-    	//Victim Selection Base on Duels
+		//Monitoring Set Dueling
+		SetDuelingMonitorDRRIP(setIndex, cacheHit);
+
+    	//Update Based on Duels
     	if (setDuelingType[setIndex] == SDM_LEADER_SRRIP)
     	{
     		
@@ -249,8 +252,45 @@ INT32 CACHE_REPLACEMENT_STATE::Get_Random_Victim( UINT32 setIndex )
 
 ////////////////////////////////////////////////////////////////////////////////
 //                                                                            //
-// This function finds a random victim in the cache set                       //
+// This function updates the set dueling count PSEL based on which set gets   //
+// the miss.											                      //
 //                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+void CACHE_REPLACEMENT_STATE::SetDuelingMonitorDRRIP( UINT32 setIndex, bool cacheHit )
+{
+	// We only update on misses
+	if (!cacheHit)
+		return;
+	// We do not update on follower sets
+	if (setDuelingType[setIndex] == SDM_FOLLOWER)
+    	return;
+    // Now choose between to types of sets and update PSEL
+    if (setDuelingType[setIndex] == SDM_LEADER_SRRIP) 
+    {
+    	if (PSEL==PSEL_MAX)
+    		return;
+    	PSEL++;
+    	return;
+    }
+    if (setDuelingType[setIndex] == SDM_LEADER_BRRIP)
+    {
+    	if (PSEL==0)
+    		return;
+    	PSEL--;
+    	return
+    }
+
+    // If we reach here there was an error
+    else
+    	cout << "\tTHERE WAS AND ERROR IN SET DUELING MONITOR";
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//                                                                            //
+// This function finds a the victim in RRIP policies. It searches for the 	  //
+// RRVP value of RRIP_MAX, if it was find that is the victim. If not it 	  //
+// increases all RRVP by one and try again									  //
+//																		      //                                                                           
 ////////////////////////////////////////////////////////////////////////////////
 INT32 CACHE_REPLACEMENT_STATE::Get_RRIP_Victim( UINT32 setIndex )
 {
