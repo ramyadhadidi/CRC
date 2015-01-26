@@ -503,8 +503,7 @@ void CACHE_REPLACEMENT_STATE::UpdateSHiP( UINT32 setIndex, INT32 updateWayID, Ad
 ////////////////////////////////////////////////////////////////////////////////
 UINT32 CACHE_REPLACEMENT_STATE::SHiP_HASH_FUNC (Addr_t PC)
 {
-    Addr_t mask = pow(2,NumSigBits+1)-1;
-    return UINT32(PC & mask);
+    return int(PC & int(pow(2,NumSigBits+1)-1));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
