@@ -361,8 +361,10 @@ INT32 CACHE_REPLACEMENT_STATE::Get_SHiP_Victim( UINT32 setIndex )
     if (repl[ setIndex][ rripway ].outcome == false)
     {
         if (SHCT.find(repl[setIndex][rripway].signature) != SHCT.end())
+        {
             if (SHCT[repl[setIndex][rripway].signature] != 0)
                 SHCT[repl[setIndex][rripway].signature]--;
+        }
         else
             cout << "\tTHERE WAS AND ERROR IN SHiP VICTIM SELECTION" << endl;
     }
@@ -501,7 +503,7 @@ void CACHE_REPLACEMENT_STATE::UpdateSHiP( UINT32 setIndex, INT32 updateWayID, Ad
 ////////////////////////////////////////////////////////////////////////////////
 UINT32 CACHE_REPLACEMENT_STATE::SHiP_HASH_FUNC (Addr_t PC)
 {
-    return PC & (pow(2,NumSigBits+1)-1)
+    return PC & (pow(2,NumSigBits+1)-1);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

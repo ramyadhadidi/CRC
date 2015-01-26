@@ -19,6 +19,7 @@
 #include <cstdlib>
 #include <cassert>
 #include <map>
+#include <cmath>
 #include "utils.h"
 #include "crc_cache_defs.h"
 
@@ -121,6 +122,7 @@ class CACHE_REPLACEMENT_STATE
     void   UpdateRRIP( UINT32 setIndex, INT32 updateWayID, bool cacheHit );
     void   SetDuelingMonitorDRRIP( UINT32 setIndex, bool cacheHit );
     void   UpdateRRIP( UINT32 setIndex, INT32 updateWayID, Addr_t PC, bool cacheHit );
+    void   UpdateSHiP( UINT32 setIndex, INT32 updateWayID, Addr_t PC, bool cacheHit );
 };
 
 
