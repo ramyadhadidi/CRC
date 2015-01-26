@@ -479,7 +479,7 @@ void CACHE_REPLACEMENT_STATE::UpdateSHiP( UINT32 setIndex, INT32 updateWayID, Ad
         if (SHCT[repl[ setIndex ][ updateWayID ].signature] == SHCTCtrMax)
             return;
         else
-            SHCT[repl[ setIndex ][ updateWayID ].signature++;
+            SHCT[repl[ setIndex ][ updateWayID ].signature]++;
 
         return;
     } 
@@ -503,7 +503,7 @@ void CACHE_REPLACEMENT_STATE::UpdateSHiP( UINT32 setIndex, INT32 updateWayID, Ad
 ////////////////////////////////////////////////////////////////////////////////
 UINT32 CACHE_REPLACEMENT_STATE::SHiP_HASH_FUNC (Addr_t PC)
 {
-    return PC & (pow(2,NumSigBits+1)-1);
+    return UINT32(PC & UINT64(pow(2,NumSigBits+1)-1));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
