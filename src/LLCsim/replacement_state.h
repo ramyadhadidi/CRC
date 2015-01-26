@@ -31,7 +31,7 @@
 #define NumLeaderSets   64
 #define RRIP_MAX        3
 #define PSEL_MAX        15
-#define BIOMODAL_PROBABILITY    10   //[1 means 0.1%/10 means 1%] of all times
+#define BIOMODAL_PROBABILITY    31   //[1 means 0.1%/10 means 1%] of all times
 
 //SHiP Defines
 #define RRIP_MAX_SHiP   3
