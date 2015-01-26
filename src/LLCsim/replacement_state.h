@@ -36,7 +36,7 @@
 #define RRIP_MAX_SHiP   3
 #define NumSHCTEnties   16 * K
 #define NumSigBits      14  
-#define SHCTCtrMax  	3
+#define SHCTCtrMax  	7
 
 // Replacement Policies Supported
 typedef enum 
@@ -115,6 +115,7 @@ class CACHE_REPLACEMENT_STATE
     INT32  Get_LRU_Victim( UINT32 setIndex );
     INT32  Get_RRIP_Victim( UINT32 setIndex );
     INT32  Get_SHiP_Victim( UINT32 setIndex );
+    UINT32 SHiP_HASH_FUNC (Addr_t PC);
 
     void   UpdateLRU( UINT32 setIndex, INT32 updateWayID );
     void   UpdateRRIP( UINT32 setIndex, INT32 updateWayID, bool cacheHit );
