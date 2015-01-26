@@ -23,7 +23,7 @@
 #include "crc_cache_defs.h"
 
 //General Defines
-#define K   1000
+#define K   1024
 #define M   1000000
 
 //DRRIP Defines
@@ -36,7 +36,7 @@
 #define RRIP_MAX_SHiP   3
 #define NumSHCTEnties   16 * K
 #define NumSigBits      14  
-#define NumSHCTCtrBits  12
+#define SHCTCtrMax  	3
 
 // Replacement Policies Supported
 typedef enum 
@@ -61,9 +61,13 @@ typedef struct
 {
     UINT32  LRUstackposition;
 
-    // CONTESTANTS: Add extra state per cache line here
-    // DRRIP Data
+    // DRRIP & SHiP-PC
     UINT32 RRVP;
+
+    // SHiP-PC
+    bool outcome;
+    UINT32 signature;
+
 
 } LINE_REPLACEMENT_STATE;
 
@@ -81,9 +85,12 @@ class CACHE_REPLACEMENT_STATE
 
     COUNTER mytimer;  // tracks # of references to the cache
 
-    // CONTESTANTS:  Add extra state for cache here
-    UINT32  *setDuelingType;
-    UINT32  PSEL;
+    // DRRIP
+    UINT32  *setDuelingType;		// keep the leader sets and follower based on above enum
+    UINT32  PSEL;					// counter for set dueling
+
+    // SHiP-PC
+    std::map<UINT32, UINT32> SHCT;	// signature history counter table <signature, counter>
 
   public:
 
@@ -105,12 +112,14 @@ class CACHE_REPLACEMENT_STATE
     void   InitReplacementState();
 
     INT32  Get_Random_Victim( UINT32 setIndex );
-    INT32  Get_RRIP_Victim( UINT32 setIndex );
     INT32  Get_LRU_Victim( UINT32 setIndex );
+    INT32  Get_RRIP_Victim( UINT32 setIndex );
+    INT32  Get_SHiP_Victim( UINT32 setIndex );
 
     void   UpdateLRU( UINT32 setIndex, INT32 updateWayID );
     void   UpdateRRIP( UINT32 setIndex, INT32 updateWayID, bool cacheHit );
     void   SetDuelingMonitorDRRIP( UINT32 setIndex, bool cacheHit );
+    void   UpdateRRIP( UINT32 setIndex, INT32 updateWayID, Addr_t PC, bool cacheHit );
 };
 
 

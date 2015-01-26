@@ -65,17 +65,17 @@ void CACHE_REPLACEMENT_STATE::InitReplacementState()
         {
             // initialize stack position (for true LRU)
             repl[ setIndex ][ way ].LRUstackposition = way;
-            //	initialize RRVP for RRIP policy
+            // initialize RRVP for RRIP policy
             repl[ setIndex][ way ].RRVP = RRIP_MAX;
+            // initialize outcome bit for SHiP-PC
+            repl[ setIndex][ way ].outcome = false;
         }
     }
-
-    // Contestants:  ADD INITIALIZATION FOR YOUR HARDWARE HERE
     
+    // DRRIP
     // Set Dueling Initialization
     setDuelingType = new UINT32 [numsets];
     std::map<UINT32,UINT32> duel;
-    std::map<UINT32,UINT32>::iterator itMap;
 
     for (UINT32 setIndex=0; setIndex<numsets; setIndex++)
         setDuelingType[setIndex] = SDM_FOLLOWER;
@@ -95,8 +95,15 @@ void CACHE_REPLACEMENT_STATE::InitReplacementState()
         }
     }
 
-    //PSEL Initialization for DRRIP
+    // PSEL Initialization for DRRIP
     PSEL = 0;
+
+    // SHiP-PC
+    // This assignment is based on that all signatures 
+    // will fill the SHCT - or NumSHCTEnties = 2^NumSigBits
+    for (UINT32 entry=0; entry<NumSHCTEnties; entry++)
+        SHCT[entry] = 0;
+
 
 }
 
@@ -129,11 +136,13 @@ INT32 CACHE_REPLACEMENT_STATE::GetVictimInSet( UINT32 tid, UINT32 setIndex, cons
     }
     else if ( replPolicy == CRC_REPL_DRRIP ) 
     {
-    	//Victim Selection is Same Acorss all Dueling Policies
+    	// Victim Selection is Same Acorss all Dueling Policies
     	return Get_RRIP_Victim(setIndex);
     }
-    else if ( replPolicy == CRC_REPL_SHIP ) {
-    	
+    else if ( replPolicy == CRC_REPL_SHIP ) 
+    {
+        // This is the same as SRRIP or above function
+        return Get_SHiP_Victim(setIndex);	
     } 
     else if( replPolicy == CRC_REPL_CONTESTANT )
     {
@@ -178,13 +187,11 @@ void CACHE_REPLACEMENT_STATE::UpdateReplacementState(
     }
     else if ( replPolicy == CRC_REPL_SHIP ) 
     {
-    	
+    	UpdateSHiP( setIndex, updateWayID, PC, cacheHit );
     }
     else if( replPolicy == CRC_REPL_CONTESTANT )
     {
-        // Contestants:  ADD YOUR UPDATE REPLACEMENT STATE FUNCTION HERE
-        // Feel free to use any of the input parameters to make
-        // updates to your replacement policy
+
     }
     
     
@@ -270,7 +277,7 @@ void CACHE_REPLACEMENT_STATE::SetDuelingMonitorDRRIP( UINT32 setIndex, bool cach
 
     // If we reach here there was an error
     else
-    	cout << "\tTHERE WAS AND ERROR IN SET DUELING MONITOR";
+    	cout << "\tTHERE WAS AND ERROR IN SET DUELING MONITOR" << endl;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -313,6 +320,57 @@ INT32 CACHE_REPLACEMENT_STATE::Get_RRIP_Victim( UINT32 setIndex )
 
 ////////////////////////////////////////////////////////////////////////////////
 //                                                                            //
+// This is for SHiP-PC victim selection based on SRRIP.                       //
+// This function finds a the victim in RRIP policies. It searches for the     //
+// RRVP value of RRIP_MAX, if it was find that is the victim. If not it       //
+// increases all RRVP by one and try again.                                   //
+// This is for SHiP-PC. If the line was not hitted after we bring it so       //
+// outcome bit will be false. If then we decrement the counter of that        //
+// signature.                                                                 //
+//                                                                            //                                                                           
+////////////////////////////////////////////////////////////////////////////////
+INT32 CACHE_REPLACEMENT_STATE::Get_SHiP_Victim( UINT32 setIndex )
+{
+    // Get pointer to replacement state of current set
+    LINE_REPLACEMENT_STATE *replSet = repl[ setIndex ];
+
+    INT32 rripway = 0;
+
+    // Search for the Victim
+    for(UINT32 way=0; way<assoc;)
+    {   
+        // Find if there is a Line with RRIP_MAX
+        if( replSet[way].RRVP == RRIP_MAX_SHiP ) 
+        {
+            rripway = way;
+            break;
+        }
+
+        way++;
+        // If reaches here, Means There is no RRIP_MAX
+        // So Increase all by One and Retry
+        if (way == assoc) 
+        {
+            for(UINT32 way_second=0; way_second<assoc; way_second++)
+                replSet[way_second].RRVP++;
+            way=0;
+        }
+    }
+
+    // Now update the SHCT based on Victim outcome
+    if (repl[ setIndex][ rripway ].outcome == false)
+    {
+        if (SHCT.find(repl[setIndex][rripway].signature) != SHCT.end())
+            SHCT[repl[setIndex][rripway].signature]--;
+        else
+            cout << "\tTHERE WAS AND ERROR IN SHiP VICTIM SELECTION" << endl;
+    }
+    
+    return rripway;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//                                                                            //
 // This function implements the LRU update routine for the traditional        //
 // LRU replacement policy. The arguments to the function are the physical     //
 // way and set index.                                                         //
@@ -342,8 +400,8 @@ void CACHE_REPLACEMENT_STATE::UpdateLRU( UINT32 setIndex, INT32 updateWayID )
 // This function implements the RRIP update routine with Hit Priority (HP).	  //
 // Also BRRIP with BIOMODAL_PROBABILITY constant.   						  //
 // On a hit RRPV will be 0. On a miss it will based on Viction selection we   //
-// kick-out the line and insert the new line with RRIP_MAX-1 or with Biomodal //
-// probability with RRIP_MAX-2. We update all type of set in this function.	  //
+// kick-out the line and insert the new line with RRIP_MAX or with Biomodal   //
+// probability with RRIP_MAX-1. We update all type of set in this function.	  //
 //																			  //
 ////////////////////////////////////////////////////////////////////////////////
 void CACHE_REPLACEMENT_STATE::UpdateRRIP( UINT32 setIndex, INT32 updateWayID, bool cacheHit )
@@ -369,9 +427,9 @@ void CACHE_REPLACEMENT_STATE::UpdateRRIP( UINT32 setIndex, INT32 updateWayID, bo
 	if (setDuelingType[setIndex] == SDM_LEADER_BRRIP)
 	{
 		if (rand()%1000 < BIOMODAL_PROBABILITY)
-			repl[ setIndex ][ updateWayID ].RRVP = RRIP_MAX-2;
-		else
 			repl[ setIndex ][ updateWayID ].RRVP = RRIP_MAX-1;
+		else
+			repl[ setIndex ][ updateWayID ].RRVP = RRIP_MAX;
 		return;
 	}
 
@@ -383,9 +441,9 @@ void CACHE_REPLACEMENT_STATE::UpdateRRIP( UINT32 setIndex, INT32 updateWayID, bo
 		if (PSEL > PSEL_MAX/2)
 		{
 			if (rand()%1000 < BIOMODAL_PROBABILITY)
-				repl[ setIndex ][ updateWayID ].RRVP = RRIP_MAX-2;
-			else
 				repl[ setIndex ][ updateWayID ].RRVP = RRIP_MAX-1;
+			else
+				repl[ setIndex ][ updateWayID ].RRVP = RRIP_MAX;
 			return;
 		}
 		//SRRIP
@@ -396,6 +454,41 @@ void CACHE_REPLACEMENT_STATE::UpdateRRIP( UINT32 setIndex, INT32 updateWayID, bo
 		}
 
 	}
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//                                                                            //
+//  This function implement SHiP-PC update routine which is based on SRRIP    //
+//  and signature tracking. Hit Priority (HP) is impelemented. So, on every   //
+//  hit RRVP is updated to 0. On a miss after eviction we will update to      //
+//  outcome bit of the line and based on the signature counter insert it with //
+//  different RRVP.                                                           //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+void CACHE_REPLACEMENT_STATE::UpdateSHiP( UINT32 setIndex, INT32 updateWayID, Addr_t PC, bool cacheHit ) {
+    //On Hit updat RRVP to 0 and increment SHCT
+    if (cacheHit)
+    {
+        //RRVP update
+        repl[ setIndex ][ updateWayID ].RRVP = 0;
+
+        //SHCT coutner update
+        if (SHCT[repl[ setIndex ][ updateWayID ].signature] == SHCTCtrMax)
+            return;
+        else
+            SHCT[repl[ setIndex ][ updateWayID ].signature++;
+
+        return;
+    } 
+
+    // If miss
+    repl[ setIndex ][ updateWayID ].outcome = false;
+    repl[ setIndex ][ updateWayID ].signature = SHiP_HASH_FUNC (PC);
+    if (SHCT[repl[setIndex][updateWayID].signature] == 0)
+        repl[ setIndex ][ updateWayID ].RRVP = RRIP_MAX;
+    else
+        repl[ setIndex ][ updateWayID ].RRVP = RRIP_MAX-1;
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
