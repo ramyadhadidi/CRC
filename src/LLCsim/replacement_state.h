@@ -36,7 +36,7 @@
 #define RRIP_MAX_SHiP   3
 #define NumSHCTEnties   16 * K
 #define NumSigBits      14  
-#define NumSHCTCtrBits
+#define NumSHCTCtrBits  12
 
 // Replacement Policies Supported
 typedef enum 
