@@ -43,6 +43,8 @@
 #define BLOOM_FALSE_POS_PROB		21   	//Based on paper alpha=8 - [1 means 0.1%/10 means 1%] of all times
 #define BLOOM_MAX_COUNTER			64 * K 	//Based on paper is the same as number of blocks in the cache
 #define BIOMODAL_PROBABILITY_EAF	15		//Based on paper 1/64 - [1 means 0.1%/10 means 1%] of all times
+#define NumLeaderSetsEAF   			64
+#define PSEL_MAX_EAF        		15
 
 // Replacement Policies Supported
 typedef enum 
@@ -51,7 +53,7 @@ typedef enum
     CRC_REPL_RANDOM     = 1,
     CRC_REPL_DRRIP      = 2,
     CRC_REPL_SHIP       = 3,
-    CRC_REPL_EAF		= 4,
+    CRC_REPL_EAF		= 4,	//D-EAF
     CRC_REPL_CONTESTANT = 5
 } ReplacemntPolicy;
 
@@ -60,7 +62,9 @@ typedef enum
 {
     SDM_LEADER_SRRIP    = 0,
     SDM_LEADER_BRRIP    = 1,
-    SDM_FOLLOWER        = 2
+    SDM_FOLLOWER        = 2,
+    SDM_LEADER_LRU	    = 3,
+    SDM_LEADER_EAF		= 4
 } TypeSetForDuelingDRRIP;
 
 // Replacement State Per Cache Line
@@ -136,6 +140,7 @@ class CACHE_REPLACEMENT_STATE
     void   UpdateEAF( UINT32 setIndex, INT32 updateWayID, const LINE_STATE *currLine, bool cacheHit );
 
     void   SetDuelingMonitorDRRIP( UINT32 setIndex, bool cacheHit );
+    void   SetDuelingMonitorEAF( UINT32 setIndex, bool cacheHit );
 };
 
 

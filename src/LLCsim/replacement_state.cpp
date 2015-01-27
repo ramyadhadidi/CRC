@@ -72,7 +72,7 @@ void CACHE_REPLACEMENT_STATE::InitReplacementState()
         }
     }
 
-    // PSEL Initialization for DRRIP
+    // PSEL Initialization for DRRIP & D-EAF
     PSEL = 0;
     
     // ------------------------Private Variables per Policy
@@ -111,10 +111,35 @@ void CACHE_REPLACEMENT_STATE::InitReplacementState()
             SHCT[entry] = 0;
     }
 
-    // EAF
+    // D-EAF
     // for the bloom filter, we will use a map, and the key is the counter
     // it is easier to do a search
     counter_EAF = 0;
+    // Set Dueling Initialization
+    // Duel between LRU and EAF
+    if (replPolicy == CRC_REPL_EAF) 
+    {
+        setDuelingType = new UINT32 [numsets];
+        std::map<UINT32,UINT32> duel;
+
+        for (UINT32 setIndex=0; setIndex<numsets; setIndex++)
+            setDuelingType[setIndex] = SDM_FOLLOWER;
+
+        // Create Leader Sets Randomely
+        for (UINT32 iteration=0; iteration<NumLeaderSetsEAF; iteration++) {
+            UINT32 setNo;
+            do { setNo = rand() % numsets;
+            } while(duel.find(setNo)!=duel.end());
+            if (iteration%2) {
+                duel[setNo] = SDM_LEADER_LRU;
+                setDuelingType[setNo] = SDM_LEADER_SRRIP; 
+            }
+            else {
+                duel[setNo] = SDM_LEADER_BRRIP;
+                setDuelingType[setNo] = SDM_LEADER_EAF;
+            }
+        }
+    }
 
 }
 
@@ -207,6 +232,9 @@ void CACHE_REPLACEMENT_STATE::UpdateReplacementState(
     }
     else if ( replPolicy == CRC_REPL_EAF ) 
     {
+        //Monitoring Set Dueling
+        SetDuelingMonitorEAF(setIndex, cacheHit);
+        //Update both LRU and EAF
         UpdateEAF ( setIndex, updateWayID, currLine, cacheHit );
     }
     else if( replPolicy == CRC_REPL_CONTESTANT )
@@ -298,6 +326,41 @@ void CACHE_REPLACEMENT_STATE::SetDuelingMonitorDRRIP( UINT32 setIndex, bool cach
     // If we reach here there was an error
     else
     	cout << "\tTHERE WAS AND ERROR IN SET DUELING MONITOR" << endl;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//                                                                            //
+// This function updates the set dueling count PSEL based on which set gets   //
+// the miss.                                                                  //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+void CACHE_REPLACEMENT_STATE::SetDuelingMonitorEAF( UINT32 setIndex, bool cacheHit )
+{
+    // We only update on misses
+    if (!cacheHit)
+        return;
+    // We do not update on follower sets
+    if (setDuelingType[setIndex] == SDM_FOLLOWER)
+        return;
+    // Now choose between to types of sets and update PSEL
+    if (setDuelingType[setIndex] == SDM_LEADER_LRU) 
+    {
+        if (PSEL==PSEL_MAX_EAF)
+            return;
+        PSEL++;
+        return;
+    }
+    if (setDuelingType[setIndex] == SDM_LEADER_EAF)
+    {
+        if (PSEL==0)
+            return;
+        PSEL--;
+        return;
+    }
+
+    // If we reach here there was an error
+    else
+        cout << "\tTHERE WAS AND ERROR IN SET DUELING MONITOR" << endl;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -426,7 +489,6 @@ INT32 CACHE_REPLACEMENT_STATE::Get_EAF_Victim( UINT32 setIndex, const LINE_STATE
     {
         EAF.clear();
         counter_EAF = 0;
-        cout << "clear-";
     }
 
     return lruWay;
@@ -569,6 +631,7 @@ void CACHE_REPLACEMENT_STATE::UpdateEAF( UINT32 setIndex, INT32 updateWayID, con
     // Determine current LRU stack position
     UINT32 currLRUstackposition = repl[ setIndex ][ updateWayID ].LRUstackposition;
 
+    // On Hit all Dueling policies are same
     if (cacheHit)
     {
         // Update the stack position of all lines before the current line
@@ -587,34 +650,93 @@ void CACHE_REPLACEMENT_STATE::UpdateEAF( UINT32 setIndex, INT32 updateWayID, con
     }
 
     // Miss
-    Addr_t tag_new = currLine[updateWayID].tag;
-    // check for tag in EAF
-    if (EAF.find(tag_new)!=EAF.end())
-    {
-        cout << "hit-";
-        // if there is a hit insert as MRU with porbability bloom filter
-        if (rand()%1000 > BLOOM_FALSE_POS_PROB) 
+    // We need to decide based on dueling
+    // 1.EAF
+    if (setDuelingType[setIndex] == SDM_LEADER_EAF)
+    {    
+        Addr_t tag_new = currLine[updateWayID].tag;
+        // check for tag in EAF
+        if (EAF.find(tag_new)!=EAF.end())
+        {
+            // if there is a hit insert as MRU with porbability bloom filter
+            if (rand()%1000 > BLOOM_FALSE_POS_PROB) 
+            {
+                for(UINT32 way=0; way<assoc; way++) 
+                    if( repl[setIndex][way].LRUstackposition < currLRUstackposition ) 
+                        repl[setIndex][way].LRUstackposition++;
+
+                repl[ setIndex ][ updateWayID ].LRUstackposition = 0;
+
+                return;
+            }
+        }
+        // Both cases:
+        // else improt as biomodal policy as MRU
+        if (rand()%1000 < BIOMODAL_PROBABILITY_EAF)
         {
             for(UINT32 way=0; way<assoc; way++) 
                 if( repl[setIndex][way].LRUstackposition < currLRUstackposition ) 
                     repl[setIndex][way].LRUstackposition++;
 
             repl[ setIndex ][ updateWayID ].LRUstackposition = 0;
-
-            return;
-        }
+        } 
+        // else as LRU - Nothing to do
     }
-    // Both cases:
-    // else improt as biomodal policy as MRU
-    if (rand()%1000 < BIOMODAL_PROBABILITY_EAF)
+    // 2.LRU
+    if (setDuelingType[setIndex] == SDM_LEADER_LRU)
     {
         for(UINT32 way=0; way<assoc; way++) 
-            if( repl[setIndex][way].LRUstackposition < currLRUstackposition ) 
-                repl[setIndex][way].LRUstackposition++;
+                if( repl[setIndex][way].LRUstackposition < currLRUstackposition ) 
+                    repl[setIndex][way].LRUstackposition++;
 
-        repl[ setIndex ][ updateWayID ].LRUstackposition = 0;
-    } 
-    // else as LRU - Nothing to do
+            repl[ setIndex ][ updateWayID ].LRUstackposition = 0;   
+    }
+    // 2.Follower
+    if (setDuelingType[setIndex] == SDM_LEADER_LRU)
+    {
+        //PSEL high shows high misses in LRU so we choose
+        //EAF
+        if (PSEL > PSEL_MAX_EAF/2)
+        {
+            Addr_t tag_new = currLine[updateWayID].tag;
+            // check for tag in EAF
+            if (EAF.find(tag_new)!=EAF.end())
+            {
+                // if there is a hit insert as MRU with porbability bloom filter
+                if (rand()%1000 > BLOOM_FALSE_POS_PROB) 
+                {
+                    for(UINT32 way=0; way<assoc; way++) 
+                        if( repl[setIndex][way].LRUstackposition < currLRUstackposition ) 
+                            repl[setIndex][way].LRUstackposition++;
+
+                    repl[ setIndex ][ updateWayID ].LRUstackposition = 0;
+
+                    return;
+                }
+        }
+        // Both cases:
+        // else improt as biomodal policy as MRU
+        if (rand()%1000 < BIOMODAL_PROBABILITY_EAF)
+        {
+            for(UINT32 way=0; way<assoc; way++) 
+                if( repl[setIndex][way].LRUstackposition < currLRUstackposition ) 
+                    repl[setIndex][way].LRUstackposition++;
+
+            repl[ setIndex ][ updateWayID ].LRUstackposition = 0;
+        } 
+        // else as LRU - Nothing to do
+        }
+        //LRU
+        else
+        {
+            for(UINT32 way=0; way<assoc; way++) 
+                if( repl[setIndex][way].LRUstackposition < currLRUstackposition ) 
+                    repl[setIndex][way].LRUstackposition++;
+
+            repl[ setIndex ][ updateWayID ].LRUstackposition = 0; 
+        }
+
+    }
 }
 
 
