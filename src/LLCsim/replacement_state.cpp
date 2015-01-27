@@ -591,6 +591,7 @@ void CACHE_REPLACEMENT_STATE::UpdateEAF( UINT32 setIndex, INT32 updateWayID, con
     // check for tag in EAF
     if (EAF.find(tag_new)!=EAF.end())
     {
+        cout << "hit-";
         // if there is a hit insert as MRU with porbability bloom filter
         if (rand()%1000 > BLOOM_FALSE_POS_PROB) 
         {
