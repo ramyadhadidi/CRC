@@ -582,41 +582,37 @@ void CACHE_REPLACEMENT_STATE::UpdateEAF( UINT32 setIndex, INT32 updateWayID, con
 
         // Set the LRU stack position of new line to be zero
         repl[ setIndex ][ updateWayID ].LRUstackposition = 0;
+        return;
     }
 
     // Miss
-    else
+    Addr_t tag_new = currLine[updateWayID].tag;
+    // check for tag in EAF
+    if (EAF.find(tag_new)!=EAF.end())
     {
-        Addr_t tag_new = currLine[updateWayID].tag;
-        // check for tag in EAF
-        if (EAF.find(tag_new)!=EAF.end())
+        // if there is a hit insert as MRU with porbability bloom filter
+        if (rand()%1000 > BLOOM_FALSE_POS_PROB) 
         {
-            // if there is a hit insert as MRU with porbability bloom filter
-            if (rand()%1000 > BLOOM_FALSE_POS_PROB) 
-            {
-                for(UINT32 way=0; way<assoc; way++) 
-                    if( repl[setIndex][way].LRUstackposition < currLRUstackposition ) 
-                        repl[setIndex][way].LRUstackposition++;
+            for(UINT32 way=0; way<assoc; way++) 
+                if( repl[setIndex][way].LRUstackposition < currLRUstackposition ) 
+                    repl[setIndex][way].LRUstackposition++;
 
-                repl[ setIndex ][ updateWayID ].LRUstackposition = 0;
-            }
-            // else import as LRU - Nothing to do
-        }
-        // else improt as biomodal policy
-        else
-        {
-            // Biomodal as MRU
-            if (rand()%1000 < BBIOMODAL_PROBABILITY_EAF)
-            {
-                for(UINT32 way=0; way<assoc; way++) 
-                    if( repl[setIndex][way].LRUstackposition < currLRUstackposition ) 
-                        repl[setIndex][way].LRUstackposition++;
+            repl[ setIndex ][ updateWayID ].LRUstackposition = 0;
 
-                repl[ setIndex ][ updateWayID ].LRUstackposition = 0;   
-            } 
-            // else as LRU - Nothing to do
+            return;
         }
     }
+    // Both cases:
+    // else improt as biomodal policy as MRU
+    if (rand()%1000 < BIOMODAL_PROBABILITY_EAF)
+    {
+        for(UINT32 way=0; way<assoc; way++) 
+            if( repl[setIndex][way].LRUstackposition < currLRUstackposition ) 
+                repl[setIndex][way].LRUstackposition++;
+
+        repl[ setIndex ][ updateWayID ].LRUstackposition = 0;
+    } 
+    // else as LRU - Nothing to do
 }
 
 
