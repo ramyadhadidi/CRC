@@ -426,6 +426,7 @@ INT32 CACHE_REPLACEMENT_STATE::Get_EAF_Victim( UINT32 setIndex, const LINE_STATE
     {
         EAF.clear();
         counter_EAF = 0;
+        cout << "clear-";
     }
 
     return lruWay;
