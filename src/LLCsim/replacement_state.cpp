@@ -71,39 +71,50 @@ void CACHE_REPLACEMENT_STATE::InitReplacementState()
             repl[ setIndex][ way ].outcome = false;
         }
     }
-    
-    // DRRIP
-    // Set Dueling Initialization
-    setDuelingType = new UINT32 [numsets];
-    std::map<UINT32,UINT32> duel;
-
-    for (UINT32 setIndex=0; setIndex<numsets; setIndex++)
-        setDuelingType[setIndex] = SDM_FOLLOWER;
-
-    // Create Leader Sets Randomely
-    for (UINT32 iteration=0; iteration<NumLeaderSets; iteration++) {
-        UINT32 setNo;
-        do { setNo = rand() % numsets;
-        } while(duel.find(setNo)!=duel.end());
-        if (iteration%2) {
-            duel[setNo] = SDM_LEADER_SRRIP;
-            setDuelingType[setNo] = SDM_LEADER_SRRIP; 
-        }
-        else {
-            duel[setNo] = SDM_LEADER_BRRIP;
-            setDuelingType[setNo] = SDM_LEADER_BRRIP;
-        }
-    }
 
     // PSEL Initialization for DRRIP
     PSEL = 0;
+    
+    // ------------------------Private Variables per Policy
+    // DRRIP
+    // Set Dueling Initialization
+    if (replPolicy == CRC_REPL_DRRIP) 
+    {
+        setDuelingType = new UINT32 [numsets];
+        std::map<UINT32,UINT32> duel;
+
+        for (UINT32 setIndex=0; setIndex<numsets; setIndex++)
+            setDuelingType[setIndex] = SDM_FOLLOWER;
+
+        // Create Leader Sets Randomely
+        for (UINT32 iteration=0; iteration<NumLeaderSets; iteration++) {
+            UINT32 setNo;
+            do { setNo = rand() % numsets;
+            } while(duel.find(setNo)!=duel.end());
+            if (iteration%2) {
+                duel[setNo] = SDM_LEADER_SRRIP;
+                setDuelingType[setNo] = SDM_LEADER_SRRIP; 
+            }
+            else {
+                duel[setNo] = SDM_LEADER_BRRIP;
+                setDuelingType[setNo] = SDM_LEADER_BRRIP;
+            }
+        }
+    }
 
     // SHiP-PC
     // This assignment is based on that all signatures 
     // will fill the SHCT - or NumSHCTEnties = 2^NumSigBits
-    for (UINT32 entry=0; entry<NumSHCTEnties; entry++)
-        SHCT[entry] = 0;
+    if (replPolicy == CRC_REPL_SHIP) 
+    {
+        for (UINT32 entry=0; entry<NumSHCTEnties; entry++)
+            SHCT[entry] = 0;
+    }
 
+    // EAF
+    // for the bloom filter, we will use a map, and the key is the counter
+    // it is easier to do a search
+    counter_EAF = 0;
 
 }
 
@@ -143,6 +154,11 @@ INT32 CACHE_REPLACEMENT_STATE::GetVictimInSet( UINT32 tid, UINT32 setIndex, cons
     {
         // This is the same as SRRIP or above function
         return Get_SHiP_Victim(setIndex);	
+    }
+    else if ( replPolicy == CRC_REPL_EAF ) 
+    {
+        // Victim Selection is the same as LRU, but we need to update EAF
+        return Get_EAF_Victim( setIndex, vicSet );   
     } 
     else if( replPolicy == CRC_REPL_CONTESTANT )
     {
@@ -188,6 +204,10 @@ void CACHE_REPLACEMENT_STATE::UpdateReplacementState(
     else if ( replPolicy == CRC_REPL_SHIP ) 
     {
     	UpdateSHiP( setIndex, updateWayID, PC, cacheHit );
+    }
+    else if ( replPolicy == CRC_REPL_EAF ) 
+    {
+        UpdateEAF ( setIndex, updateWayID, currLine, cacheHit );
     }
     else if( replPolicy == CRC_REPL_CONTESTANT )
     {
@@ -374,6 +394,45 @@ INT32 CACHE_REPLACEMENT_STATE::Get_SHiP_Victim( UINT32 setIndex )
 
 ////////////////////////////////////////////////////////////////////////////////
 //                                                                            //
+// This function finds the LRU victim in the cache set by returning the       //
+// cache block at the bottom of the LRU stack. Top of LRU stack is '0'        //
+// while bottom of LRU stack is 'assoc-1'                                     //
+// Then we will insert the victim tag into the EAF tabel.                     //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+INT32 CACHE_REPLACEMENT_STATE::Get_EAF_Victim( UINT32 setIndex, const LINE_STATE *vicSet )
+{
+    // Get pointer to replacement state of current set
+    LINE_REPLACEMENT_STATE *replSet = repl[ setIndex ];
+
+    INT32   lruWay   = 0;
+
+    // Search for victim whose stack position is assoc-1
+    for(UINT32 way=0; way<assoc; way++) 
+    {
+        if( replSet[way].LRUstackposition == (assoc-1) ) 
+        {
+            lruWay = way;
+            break;
+        }
+    }
+
+    //Insert the evicted line tag in EAF
+    Addr_t tag_vic = vicSet[lruWay].tag;
+    EAF[tag_vic] = counter_EAF;
+    counter_EAF++;
+
+    if (counter_EAF == BLOOM_MAX_COUNTER)
+    {
+        EAF.clear();
+        counter_EAF = 0;
+    }
+
+    return lruWay;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//                                                                            //
 // This function implements the LRU update routine for the traditional        //
 // LRU replacement policy. The arguments to the function are the physical     //
 // way and set index.                                                         //
@@ -492,6 +551,72 @@ void CACHE_REPLACEMENT_STATE::UpdateSHiP( UINT32 setIndex, INT32 updateWayID, Ad
     else
         repl[ setIndex ][ updateWayID ].RRVP = RRIP_MAX-1;
 
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+//                                                                            //
+// This function implements EAF update procedure. If there was a miss, we     //
+// will look at the new tag, and based on EAF table insert the line. However, //
+// EAF table lookup will be based on bloom filters. Bloom filters has a false //
+// positive probability which we will implement.                              //
+// If there was a hit, will be like LRU.                                      //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+void CACHE_REPLACEMENT_STATE::UpdateEAF( UINT32 setIndex, INT32 updateWayID, const LINE_STATE *currLine, bool cacheHit )
+{
+    // Determine current LRU stack position
+    UINT32 currLRUstackposition = repl[ setIndex ][ updateWayID ].LRUstackposition;
+
+    if (cacheHit)
+    {
+        // Update the stack position of all lines before the current line
+        // Update implies incremeting their stack positions by one
+        for(UINT32 way=0; way<assoc; way++) 
+        {
+            if( repl[setIndex][way].LRUstackposition < currLRUstackposition ) 
+            {
+                repl[setIndex][way].LRUstackposition++;
+            }
+        }
+
+        // Set the LRU stack position of new line to be zero
+        repl[ setIndex ][ updateWayID ].LRUstackposition = 0;
+    }
+
+    // Miss
+    else
+    {
+        Addr_t tag_new = currLine[updateWayID].tag;
+        // check for tag in EAF
+        if (EAF.find(tag_new)!=EAF.end())
+        {
+            // if there is a hit insert as MRU with porbability bloom filter
+            if (rand()%1000 > BLOOM_FALSE_POS_PROB) 
+            {
+                for(UINT32 way=0; way<assoc; way++) 
+                    if( repl[setIndex][way].LRUstackposition < currLRUstackposition ) 
+                        repl[setIndex][way].LRUstackposition++;
+
+                repl[ setIndex ][ updateWayID ].LRUstackposition = 0;
+            }
+            // else import as LRU - Nothing to do
+        }
+        // else improt as biomodal policy
+        else
+        {
+            // Biomodal as MRU
+            if (rand()%1000 < BBIOMODAL_PROBABILITY_EAF)
+            {
+                for(UINT32 way=0; way<assoc; way++) 
+                    if( repl[setIndex][way].LRUstackposition < currLRUstackposition ) 
+                        repl[setIndex][way].LRUstackposition++;
+
+                repl[ setIndex ][ updateWayID ].LRUstackposition = 0;   
+            } 
+            // else as LRU - Nothing to do
+        }
+    }
 }
 
 

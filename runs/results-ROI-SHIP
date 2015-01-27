@@ -1,0 +1,37 @@
+mix mcf
+    
+
+mix bwaves
+   
+
+mix bzip2
+    
+
+mix zeous
+    
+
+mix cactus
+    
+
+mix hmmer
+    Thread ID: 0 ICOUNT: 200000001 CYC: 55917469 CPI: 0.279587 Global Cycles: 56931252 LLC Misses: 63040
+    Thread ID: 1 ICOUNT: 200000001 CYC: 56443491 CPI: 0.282217 Global Cycles: 56931252 LLC Misses: 71478
+    Thread ID: 2 ICOUNT: 200000001 CYC: 56931251 CPI: 0.284656 Global Cycles: 56931252 LLC Misses: 75950
+    Thread ID: 3 ICOUNT: 200000001 CYC: 56244713 CPI: 0.281224 Global Cycles: 56931252 LLC Misses: 70258
+
+
+mix gems
+    
+
+mix sphinx
+    
+
+mix various1
+    
+
+mix various2
+    
+
+mix various3
+    
+

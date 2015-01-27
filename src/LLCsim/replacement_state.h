@@ -39,6 +39,11 @@
 #define NumSigBits      14  		//As paper said: 14 bit PC (I used LSB)
 #define SHCTCtrMax  	3 			//As paper said: 3-bit saturating counter for default config
 
+//EAF Defines
+#define BLOOM_FALSE_POS_PROB		21   	//Based on paper alpha=8 - [1 means 0.1%/10 means 1%] of all times
+#define BLOOM_MAX_COUNTER			64 * K 	//Based on paper is the same as number of blocks in the cache
+#define BIOMODAL_PROBABILITY_EAF	15		//Based on paper 1/64 - [1 means 0.1%/10 means 1%] of all times
+
 // Replacement Policies Supported
 typedef enum 
 {
@@ -46,7 +51,8 @@ typedef enum
     CRC_REPL_RANDOM     = 1,
     CRC_REPL_DRRIP      = 2,
     CRC_REPL_SHIP       = 3,
-    CRC_REPL_CONTESTANT = 4
+    CRC_REPL_EAF		= 4,
+    CRC_REPL_CONTESTANT = 5
 } ReplacemntPolicy;
 
 // Set Type for Dueling DRRIP
@@ -93,6 +99,10 @@ class CACHE_REPLACEMENT_STATE
     // SHiP-PC
     std::map<UINT32, UINT32> SHCT;	// signature history counter table <signature, counter>
 
+    //EAF
+    std::map<Addr_t,UINT32> EAF;	// Evicted address buffer - we use this to simulate Bloom filter in EAF
+    UINT32 counter_EAF;
+
   public:
 
     CACHE_REPLACEMENT_STATE( UINT32 _sets, UINT32 _assoc, UINT32 _pol );
@@ -116,13 +126,16 @@ class CACHE_REPLACEMENT_STATE
     INT32  Get_LRU_Victim( UINT32 setIndex );
     INT32  Get_RRIP_Victim( UINT32 setIndex );
     INT32  Get_SHiP_Victim( UINT32 setIndex );
+    INT32  Get_EAF_Victim( UINT32 setIndex, const LINE_STATE *vicSet );
     UINT32 SHiP_HASH_FUNC (Addr_t PC);
 
     void   UpdateLRU( UINT32 setIndex, INT32 updateWayID );
     void   UpdateRRIP( UINT32 setIndex, INT32 updateWayID, bool cacheHit );
-    void   SetDuelingMonitorDRRIP( UINT32 setIndex, bool cacheHit );
     void   UpdateRRIP( UINT32 setIndex, INT32 updateWayID, Addr_t PC, bool cacheHit );
     void   UpdateSHiP( UINT32 setIndex, INT32 updateWayID, Addr_t PC, bool cacheHit );
+    void   UpdateEAF( UINT32 setIndex, INT32 updateWayID, const LINE_STATE *currLine, bool cacheHit );
+
+    void   SetDuelingMonitorDRRIP( UINT32 setIndex, bool cacheHit );
 };
 
 
