@@ -35,9 +35,9 @@
 
 //SHiP Defines
 #define RRIP_MAX_SHiP   3
-#define NumSHCTEnties   16 * K
-#define NumSigBits      14  
-#define SHCTCtrMax  	7
+#define NumSHCTEnties   16 * K 		//As paper: it uses direct mapping - Also following paper all comparison is done with unlimited SHCT
+#define NumSigBits      14  		//As paper said: 14 bit PC (I used LSB)
+#define SHCTCtrMax  	3 			//As paper said: 3-bit saturating counter for default config
 
 // Replacement Policies Supported
 typedef enum 

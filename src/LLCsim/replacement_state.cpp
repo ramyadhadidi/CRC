@@ -469,7 +469,7 @@ void CACHE_REPLACEMENT_STATE::UpdateRRIP( UINT32 setIndex, INT32 updateWayID, bo
 //                                                                            //
 ////////////////////////////////////////////////////////////////////////////////
 void CACHE_REPLACEMENT_STATE::UpdateSHiP( UINT32 setIndex, INT32 updateWayID, Addr_t PC, bool cacheHit ) {
-    //On Hit updat RRVP to 0 and increment SHCT
+    //On Hit update RRVP to 0 and increment SHCT
     if (cacheHit)
     {
         //RRVP update
