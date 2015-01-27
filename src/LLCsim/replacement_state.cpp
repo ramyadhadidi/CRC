@@ -658,9 +658,9 @@ void CACHE_REPLACEMENT_STATE::UpdateEAF( UINT32 setIndex, INT32 updateWayID, boo
     // 1.EAF
     if (setDuelingType[setIndex] == SDM_LEADER_EAF)
     {    
-        Addr_t paddr_new = currLine[updateWayID].paddr;
+        Addr_t paddr_new = repl[ setIndex ][ updateWayID ].paddr;
         // check for paddr in EAF
-        if (EAF.find(paddr_news)!=EAF.end())
+        if (EAF.find(paddr_new)!=EAF.end())
         {
             // if there is a hit insert as MRU with porbability bloom filter
             if (rand()%1000 > BLOOM_FALSE_POS_PROB) 
@@ -702,7 +702,7 @@ void CACHE_REPLACEMENT_STATE::UpdateEAF( UINT32 setIndex, INT32 updateWayID, boo
         //EAF
         if (PSEL > PSEL_MAX_EAF/2)
         {
-            Addr_t paddr_new = currLine[updateWayID].paddr;
+            Addr_t paddr_new = repl[ setIndex ][ updateWayID ].paddr;
             // check for paddr in EAF
             if (EAF.find(paddr_new)!=EAF.end())
             {
