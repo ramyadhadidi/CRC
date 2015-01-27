@@ -132,10 +132,10 @@ void CACHE_REPLACEMENT_STATE::InitReplacementState()
             } while(duel.find(setNo)!=duel.end());
             if (iteration%2) {
                 duel[setNo] = SDM_LEADER_LRU;
-                setDuelingType[setNo] = SDM_LEADER_SRRIP; 
+                setDuelingType[setNo] = SDM_LEADER_LRU; 
             }
             else {
-                duel[setNo] = SDM_LEADER_BRRIP;
+                duel[setNo] = SDM_LEADER_EAF;
                 setDuelingType[setNo] = SDM_LEADER_EAF;
             }
         }
