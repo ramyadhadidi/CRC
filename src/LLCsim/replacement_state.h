@@ -79,6 +79,9 @@ typedef struct
     bool outcome;
     UINT32 signature;
 
+    // D-EAF
+    Addr_t paddr;
+
 
 } LINE_REPLACEMENT_STATE;
 
@@ -130,14 +133,14 @@ class CACHE_REPLACEMENT_STATE
     INT32  Get_LRU_Victim( UINT32 setIndex );
     INT32  Get_RRIP_Victim( UINT32 setIndex );
     INT32  Get_SHiP_Victim( UINT32 setIndex );
-    INT32  Get_EAF_Victim( UINT32 setIndex, const LINE_STATE *vicSet );
+    INT32  Get_EAF_Victim( UINT32 setIndex, Addr_t PhysicalAddr );
     UINT32 SHiP_HASH_FUNC (Addr_t PC);
 
     void   UpdateLRU( UINT32 setIndex, INT32 updateWayID );
     void   UpdateRRIP( UINT32 setIndex, INT32 updateWayID, bool cacheHit );
     void   UpdateRRIP( UINT32 setIndex, INT32 updateWayID, Addr_t PC, bool cacheHit );
     void   UpdateSHiP( UINT32 setIndex, INT32 updateWayID, Addr_t PC, bool cacheHit );
-    void   UpdateEAF( UINT32 setIndex, INT32 updateWayID, const LINE_STATE *currLine, bool cacheHit );
+    void   UpdateEAF( UINT32 setIndex, INT32 updateWayID, bool cacheHit );
 
     void   SetDuelingMonitorDRRIP( UINT32 setIndex, bool cacheHit );
     void   SetDuelingMonitorEAF( UINT32 setIndex, bool cacheHit );

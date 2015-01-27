@@ -183,7 +183,7 @@ INT32 CACHE_REPLACEMENT_STATE::GetVictimInSet( UINT32 tid, UINT32 setIndex, cons
     else if ( replPolicy == CRC_REPL_EAF ) 
     {
         // Victim Selection is the same as LRU, but we need to update EAF
-        return Get_EAF_Victim( setIndex, vicSet );   
+        return Get_EAF_Victim( setIndex, paddr );   
     } 
     else if( replPolicy == CRC_REPL_CONTESTANT )
     {
@@ -235,7 +235,7 @@ void CACHE_REPLACEMENT_STATE::UpdateReplacementState(
         //Monitoring Set Dueling
         SetDuelingMonitorEAF(setIndex, cacheHit);
         //Update both LRU and EAF
-        UpdateEAF ( setIndex, updateWayID, currLine, cacheHit );
+        UpdateEAF ( setIndex, updateWayID, cacheHit );
     }
     else if( replPolicy == CRC_REPL_CONTESTANT )
     {
@@ -460,10 +460,11 @@ INT32 CACHE_REPLACEMENT_STATE::Get_SHiP_Victim( UINT32 setIndex )
 // This function finds the LRU victim in the cache set by returning the       //
 // cache block at the bottom of the LRU stack. Top of LRU stack is '0'        //
 // while bottom of LRU stack is 'assoc-1'                                     //
-// Then we will insert the victim tag into the EAF tabel.                     //
+// For simplicity when we insert a new line, we save its physical address,    //
+// then when we are evicting it, we will insert this in EAF.                  //
 //                                                                            //
 ////////////////////////////////////////////////////////////////////////////////
-INT32 CACHE_REPLACEMENT_STATE::Get_EAF_Victim( UINT32 setIndex, const LINE_STATE *vicSet )
+INT32 CACHE_REPLACEMENT_STATE::Get_EAF_Victim( UINT32 setIndex, Addr_t PhysicalAddr )
 {
     // Get pointer to replacement state of current set
     LINE_REPLACEMENT_STATE *replSet = repl[ setIndex ];
@@ -480,9 +481,9 @@ INT32 CACHE_REPLACEMENT_STATE::Get_EAF_Victim( UINT32 setIndex, const LINE_STATE
         }
     }
 
-    //Insert the evicted line tag in EAF
-    Addr_t tag_vic = vicSet[lruWay].tag;
-    EAF[tag_vic] = counter_EAF;
+    //Insert the evicted line paddr in EAF
+    Addr_t paddr_evicted = replSet[lruWay].paddr;
+    EAF[paddr_evicted] = counter_EAF;
     counter_EAF++;
 
     if (counter_EAF == BLOOM_MAX_COUNTER)
@@ -490,6 +491,9 @@ INT32 CACHE_REPLACEMENT_STATE::Get_EAF_Victim( UINT32 setIndex, const LINE_STATE
         EAF.clear();
         counter_EAF = 0;
     }
+
+    //Assign the physical address to the line
+    replSet[lruWay].paddr = PhysicalAddr;
 
     return lruWay;
 }
@@ -620,13 +624,13 @@ void CACHE_REPLACEMENT_STATE::UpdateSHiP( UINT32 setIndex, INT32 updateWayID, Ad
 ////////////////////////////////////////////////////////////////////////////////
 //                                                                            //
 // This function implements EAF update procedure. If there was a miss, we     //
-// will look at the new tag, and based on EAF table insert the line. However, //
+// will look at the new paddr, and based on EAF table insert the line. However//
 // EAF table lookup will be based on bloom filters. Bloom filters has a false //
 // positive probability which we will implement.                              //
 // If there was a hit, will be like LRU.                                      //
 //                                                                            //
 ////////////////////////////////////////////////////////////////////////////////
-void CACHE_REPLACEMENT_STATE::UpdateEAF( UINT32 setIndex, INT32 updateWayID, const LINE_STATE *currLine, bool cacheHit )
+void CACHE_REPLACEMENT_STATE::UpdateEAF( UINT32 setIndex, INT32 updateWayID, bool cacheHit )
 {
     // Determine current LRU stack position
     UINT32 currLRUstackposition = repl[ setIndex ][ updateWayID ].LRUstackposition;
@@ -654,9 +658,9 @@ void CACHE_REPLACEMENT_STATE::UpdateEAF( UINT32 setIndex, INT32 updateWayID, con
     // 1.EAF
     if (setDuelingType[setIndex] == SDM_LEADER_EAF)
     {    
-        Addr_t tag_new = currLine[updateWayID].tag;
-        // check for tag in EAF
-        if (EAF.find(tag_new)!=EAF.end())
+        Addr_t paddr_new = currLine[updateWayID].paddr;
+        // check for paddr in EAF
+        if (EAF.find(paddr_news)!=EAF.end())
         {
             // if there is a hit insert as MRU with porbability bloom filter
             if (rand()%1000 > BLOOM_FALSE_POS_PROB) 
@@ -698,9 +702,9 @@ void CACHE_REPLACEMENT_STATE::UpdateEAF( UINT32 setIndex, INT32 updateWayID, con
         //EAF
         if (PSEL > PSEL_MAX_EAF/2)
         {
-            Addr_t tag_new = currLine[updateWayID].tag;
-            // check for tag in EAF
-            if (EAF.find(tag_new)!=EAF.end())
+            Addr_t paddr_new = currLine[updateWayID].paddr;
+            // check for paddr in EAF
+            if (EAF.find(paddr_new)!=EAF.end())
             {
                 // if there is a hit insert as MRU with porbability bloom filter
                 if (rand()%1000 > BLOOM_FALSE_POS_PROB) 
