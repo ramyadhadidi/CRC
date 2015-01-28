@@ -139,7 +139,7 @@ class CACHE_REPLACEMENT_STATE
     INT32  Get_RRIP_Victim( UINT32 setIndex );
     INT32  Get_SHiP_Victim( UINT32 setIndex );
     INT32  Get_EAF_Victim( UINT32 setIndex, Addr_t PhysicalAddr );
-    INT32  Get_EAF_RRIO_Victim( UINT32 setIndex, Addr_t PhysicalAddr );
+    INT32  Get_EAF_RRIP_Victim( UINT32 setIndex, Addr_t PhysicalAddr );
     UINT32 SHiP_HASH_FUNC (Addr_t PC);
 
     void   UpdateLRU( UINT32 setIndex, INT32 updateWayID );

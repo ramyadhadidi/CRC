@@ -824,7 +824,7 @@ void CACHE_REPLACEMENT_STATE::UpdateEAF_RRIP( UINT32 setIndex, INT32 updateWayID
         if (rand()%1000 > BLOOM_FALSE_POS_PROB) 
         {
             repl[ setIndex ][ updateWayID ].RRVP = RRIP_MAX-1;
-            return
+            return;
         }
     }
     // Both cases:
