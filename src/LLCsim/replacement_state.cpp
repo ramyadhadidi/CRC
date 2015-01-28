@@ -111,10 +111,12 @@ void CACHE_REPLACEMENT_STATE::InitReplacementState()
             SHCT[entry] = 0;
     }
 
-    // D-EAF
+    // D-EAF & EAF_RRIP
     // for the bloom filter, we will use a map, and the key is the counter
     // it is easier to do a search
-    counter_EAF = 0;
+    counter_EAF = 0; 
+
+    // D-EAF
     // Set Dueling Initialization
     // Duel between LRU and EAF
     if (replPolicy == CRC_REPL_EAF) 
@@ -185,9 +187,10 @@ INT32 CACHE_REPLACEMENT_STATE::GetVictimInSet( UINT32 tid, UINT32 setIndex, cons
         // Victim Selection is the same as LRU, but we need to update EAF
         return Get_EAF_Victim( setIndex, paddr );   
     } 
-    else if( replPolicy == CRC_REPL_CONTESTANT )
+    else if( replPolicy == CRC_REPL_EAF_RRIP )
     {
-        // Contestants:  ADD YOUR VICTIM SELECTION FUNCTION HERE
+        // Victim Selection is the same as RRIP, but we need to update EAF
+        return Get_EAF_RRIP_Victim( setIndex, paddr ); 
     }
 
     // We should never get here
@@ -237,9 +240,9 @@ void CACHE_REPLACEMENT_STATE::UpdateReplacementState(
         //Update both LRU and EAF
         UpdateEAF ( setIndex, updateWayID, cacheHit );
     }
-    else if( replPolicy == CRC_REPL_CONTESTANT )
+    else if( replPolicy == CRC_REPL_EAF_RRIP )
     {
-
+        UpdateEAF_RRIP ( setIndex, updateWayID, cacheHit );
     }
     
     
@@ -478,6 +481,57 @@ INT32 CACHE_REPLACEMENT_STATE::Get_EAF_Victim( UINT32 setIndex, Addr_t PhysicalA
         {
             lruWay = way;
             break;
+        }
+    }
+
+    //Insert the evicted line paddr in EAF
+    Addr_t paddr_evicted = replSet[lruWay].paddr;
+    EAF[paddr_evicted] = counter_EAF;
+    counter_EAF++;
+
+    if (counter_EAF == BLOOM_MAX_COUNTER)
+    {
+        EAF.clear();
+        counter_EAF = 0;
+    }
+
+    //Assign the physical address to the line
+    replSet[lruWay].paddr = PhysicalAddr;
+
+    return lruWay;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//                                                                            //
+// This function is like EAF, but it do its victim selection like RRIP.       //
+// Also updating the EAF-Bloom-Filter is done in this function.               //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+INT32 CACHE_REPLACEMENT_STATE::Get_EAF_RRIP_Victim( UINT32 setIndex, Addr_t PhysicalAddr )
+{
+    // Get pointer to replacement state of current set
+    LINE_REPLACEMENT_STATE *replSet = repl[ setIndex ];
+
+    INT32 rripway = 0;
+
+    // Search for the Victim
+    for(UINT32 way=0; way<assoc;)
+    {   
+        // Find if there is a Line with RRIP_MAX
+        if( replSet[way].RRVP == RRIP_MAX ) 
+        {
+            rripway = way;
+            break;
+        }
+
+        way++;
+        // If reaches here, Means There is no RRIP_MAX
+        // So Increase all by One and Retry
+        if (way == assoc) 
+        {
+            for(UINT32 way_second=0; way_second<assoc; way_second++)
+                replSet[way_second].RRVP++;
+            way=0;
         }
     }
 
@@ -741,6 +795,47 @@ void CACHE_REPLACEMENT_STATE::UpdateEAF( UINT32 setIndex, INT32 updateWayID, boo
         }
 
     }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//                                                                            //
+// This function implements EAF update procedure. If there was a miss, we     //
+// will look at the new paddr, and based on EAF table insert the line. However//
+// EAF table lookup will be based on bloom filters. Bloom filters has a false //
+// positive probability which we will implement.                              //
+// If there was a hit, will be like LRU.                                      //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+void CACHE_REPLACEMENT_STATE::UpdateEAF_RRIP( UINT32 setIndex, INT32 updateWayID, bool cacheHit )
+{
+    //On Hit all Dueling Policies to the same
+    if (cacheHit)
+    {
+        repl[ setIndex ][ updateWayID ].RRVP = 0;
+        return;
+    } 
+
+    // Miss
+    Addr_t paddr_new = repl[ setIndex ][ updateWayID ].paddr;
+    // check for paddr in EAF
+    if (EAF.find(paddr_new)!=EAF.end())
+    {
+        // if there is a hit insert as RRIP_MAX-1 with porbability bloom filter
+        if (rand()%1000 > BLOOM_FALSE_POS_PROB) 
+        {
+            repl[ setIndex ][ updateWayID ].RRVP = RRIP_MAX-1;
+            return
+        }
+    }
+    // Both cases:
+    // else improt as biomodal policy as RRIP_MAX-1;
+    if (rand()%1000 < BIOMODAL_PROBABILITY_EAF_RRIP)
+    {
+        repl[ setIndex ][ updateWayID ].RRVP = RRIP_MAX-1;
+        return;
+    } 
+    // else as RRIP_MAXs
+    repl[ setIndex ][ updateWayID ].RRVP = RRIP_MAX;
 }
 
 
