@@ -1,0 +1,963 @@
+Run on 2015-01-27
+
+PIN Tool Info:
+	Max Number of Threads Supported: 130
+
+
+Workload Info:
+	Total Number of Hardware Threads: 4
+	Total Number of Application Threads: 4
+	Executing Total Instruction Count: 200 million (200000000)
+
+Statistics: 
+	Defined Simulation Regions: 1
+	Log Every 100 Million Instructions
+	Reset Sharing Stats: 0
+
+Caches  -- Experiment: 0
+All Latencies Are Load-To-Use Latencies
+
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+
+	[Level 2] LLC  Cache Size: 4096KB  -*- Assoc: 16 -*- TPC: 4 -*- RepPol: -- Contestant Replacement Policy -- -*- Lat: 30
+
+Setting Up Replacement Policy: SBAR-Internal
+	Leader Set Size: 32
+	Counter Max Value: 1024
+	Leader Set Replacement Policy (Main): -- Contestant Replacement Policy --
+	Leader Set Replacement Policy (Aux): -- Contestant Replacement Policy --
+
+	[Level 3] MEM  Latency: 200
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/429.mcf.ref_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/429.mcf.ref_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/429.mcf.ref_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/429.mcf.ref_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/429.mcf.ref_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/429.mcf.ref_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/429.mcf.ref_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/429.mcf.ref_200M.out.dep.gz
+
+
+[CMP$im] Initialization Done...  Starting Simulation
+
+[CMP$im] Queuing App 0 Onto HW Thread: 0 At: 0
+[CMP$im] Queuing App 1 Onto HW Thread: 1 At: 0
+[CMP$im] Queuing App 2 Onto HW Thread: 2 At: 0
+[CMP$im] Queuing App 3 Onto HW Thread: 3 At: 0
+[CMP$im] Finished Requested Instruction Count 200000001  for App 0 at Time: 798986350
+[CMP$im] Finished Requested Instruction Count 200000003  for App 2 at Time: 799044257
+[CMP$im] Finished Requested Instruction Count 200000003  for App 1 at Time: 799603349
+[CMP$im] Finished Requested Instruction Count 200000003  for App 3 at Time: 799734897
+
+
+Full Run Summary: (Global Instructions: 800863537)
+	Thread ID: 0 ICOUNT: 200406688 CYC: 799734898 CPI: 3.99056 Global Cycles: 799734898 LLC Misses: 10274656
+	Thread ID: 1 ICOUNT: 200072764 CYC: 799734898 CPI: 3.99722 Global Cycles: 799734898 LLC Misses: 10258856
+	Thread ID: 2 ICOUNT: 200384082 CYC: 799734898 CPI: 3.99101 Global Cycles: 799734898 LLC Misses: 10279493
+	Thread ID: 3 ICOUNT: 200000003 CYC: 799734898 CPI: 3.99867 Global Cycles: 799734898 LLC Misses: 10262213
+
+
+Region of Interest Summary: 
+	Thread ID: 0 ICOUNT: 200000001 CYC: 798986350 CPI: 3.99493 Global Cycles: 799734898 LLC Misses: 10262792
+	Thread ID: 1 ICOUNT: 200000003 CYC: 799603349 CPI: 3.99802 Global Cycles: 799734898 LLC Misses: 10256726
+	Thread ID: 2 ICOUNT: 200000003 CYC: 799044257 CPI: 3.99522 Global Cycles: 799734898 LLC Misses: 10268333
+	Thread ID: 3 ICOUNT: 200000003 CYC: 799734897 CPI: 3.99867 Global Cycles: 799734898 LLC Misses: 10262213
+
+PIN Tool Info:
+	Max Number of Threads Supported: 130
+
+
+Workload Info:
+	Total Number of Hardware Threads: 4
+	Total Number of Application Threads: 4
+	Executing Total Instruction Count: 200 million (200000000)
+
+Statistics: 
+	Defined Simulation Regions: 1
+	Log Every 100 Million Instructions
+	Reset Sharing Stats: 0
+
+Caches  -- Experiment: 0
+All Latencies Are Load-To-Use Latencies
+
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+
+	[Level 2] LLC  Cache Size: 4096KB  -*- Assoc: 16 -*- TPC: 4 -*- RepPol: -- Contestant Replacement Policy -- -*- Lat: 30
+
+Setting Up Replacement Policy: SBAR-Internal
+	Leader Set Size: 32
+	Counter Max Value: 1024
+	Leader Set Replacement Policy (Main): -- Contestant Replacement Policy --
+	Leader Set Replacement Policy (Aux): -- Contestant Replacement Policy --
+
+	[Level 3] MEM  Latency: 200
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.dep.gz
+
+
+[CMP$im] Initialization Done...  Starting Simulation
+
+[CMP$im] Queuing App 0 Onto HW Thread: 0 At: 0
+[CMP$im] Queuing App 1 Onto HW Thread: 1 At: 0
+[CMP$im] Queuing App 2 Onto HW Thread: 2 At: 0
+[CMP$im] Queuing App 3 Onto HW Thread: 3 At: 0
+[CMP$im] Finished Requested Instruction Count 200000001  for App 0 at Time: 57917989
+[CMP$im] Finished Requested Instruction Count 200000001  for App 3 at Time: 57918789
+[CMP$im] Finished Requested Instruction Count 200000001  for App 2 at Time: 57921366
+[CMP$im] Finished Requested Instruction Count 200000001  for App 1 at Time: 57923264
+
+
+Full Run Summary: (Global Instructions: 800045993)
+	Thread ID: 0 ICOUNT: 200020699 CYC: 57923265 CPI: 0.289586 Global Cycles: 57923265 LLC Misses: 172993
+	Thread ID: 1 ICOUNT: 200000001 CYC: 57923265 CPI: 0.289616 Global Cycles: 57923265 LLC Misses: 173027
+	Thread ID: 2 ICOUNT: 200007510 CYC: 57923265 CPI: 0.289605 Global Cycles: 57923265 LLC Misses: 173011
+	Thread ID: 3 ICOUNT: 200017783 CYC: 57923265 CPI: 0.289591 Global Cycles: 57923265 LLC Misses: 173004
+
+
+Region of Interest Summary: 
+	Thread ID: 0 ICOUNT: 200000001 CYC: 57917989 CPI: 0.28959 Global Cycles: 57923265 LLC Misses: 172993
+	Thread ID: 1 ICOUNT: 200000001 CYC: 57923264 CPI: 0.289616 Global Cycles: 57923265 LLC Misses: 173027
+	Thread ID: 2 ICOUNT: 200000001 CYC: 57921366 CPI: 0.289607 Global Cycles: 57923265 LLC Misses: 173011
+	Thread ID: 3 ICOUNT: 200000001 CYC: 57918789 CPI: 0.289594 Global Cycles: 57923265 LLC Misses: 173004
+
+PIN Tool Info:
+	Max Number of Threads Supported: 130
+
+
+Workload Info:
+	Total Number of Hardware Threads: 4
+	Total Number of Application Threads: 4
+	Executing Total Instruction Count: 200 million (200000000)
+
+Statistics: 
+	Defined Simulation Regions: 1
+	Log Every 100 Million Instructions
+	Reset Sharing Stats: 0
+
+Caches  -- Experiment: 0
+All Latencies Are Load-To-Use Latencies
+
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+
+	[Level 2] LLC  Cache Size: 4096KB  -*- Assoc: 16 -*- TPC: 4 -*- RepPol: -- Contestant Replacement Policy -- -*- Lat: 30
+
+Setting Up Replacement Policy: SBAR-Internal
+	Leader Set Size: 32
+	Counter Max Value: 1024
+	Leader Set Replacement Policy (Main): -- Contestant Replacement Policy --
+	Leader Set Replacement Policy (Aux): -- Contestant Replacement Policy --
+
+	[Level 3] MEM  Latency: 200
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.dep.gz
+
+
+[CMP$im] Initialization Done...  Starting Simulation
+
+[CMP$im] Queuing App 0 Onto HW Thread: 0 At: 0
+[CMP$im] Queuing App 1 Onto HW Thread: 1 At: 0
+[CMP$im] Queuing App 2 Onto HW Thread: 2 At: 0
+[CMP$im] Queuing App 3 Onto HW Thread: 3 At: 0
+[CMP$im] Finished Requested Instruction Count 200000002  for App 3 at Time: 109402108
+[CMP$im] Finished Requested Instruction Count 200000002  for App 1 at Time: 109522907
+[CMP$im] Finished Requested Instruction Count 200000002  for App 2 at Time: 109609973
+[CMP$im] Finished Requested Instruction Count 200000002  for App 0 at Time: 109726529
+
+
+Full Run Summary: (Global Instructions: 801940897)
+	Thread ID: 0 ICOUNT: 200000002 CYC: 109726530 CPI: 0.548633 Global Cycles: 109726530 LLC Misses: 473613
+	Thread ID: 1 ICOUNT: 200640550 CYC: 109726530 CPI: 0.546881 Global Cycles: 109726530 LLC Misses: 474016
+	Thread ID: 2 ICOUNT: 200456702 CYC: 109726530 CPI: 0.547383 Global Cycles: 109726530 LLC Misses: 475892
+	Thread ID: 3 ICOUNT: 200843643 CYC: 109726530 CPI: 0.546328 Global Cycles: 109726530 LLC Misses: 475183
+
+
+Region of Interest Summary: 
+	Thread ID: 0 ICOUNT: 200000002 CYC: 109726529 CPI: 0.548633 Global Cycles: 109726530 LLC Misses: 473613
+	Thread ID: 1 ICOUNT: 200000002 CYC: 109522907 CPI: 0.547615 Global Cycles: 109726530 LLC Misses: 473832
+	Thread ID: 2 ICOUNT: 200000002 CYC: 109609973 CPI: 0.54805 Global Cycles: 109726530 LLC Misses: 475882
+	Thread ID: 3 ICOUNT: 200000002 CYC: 109402108 CPI: 0.547011 Global Cycles: 109726530 LLC Misses: 474697
+
+PIN Tool Info:
+	Max Number of Threads Supported: 130
+
+
+Workload Info:
+	Total Number of Hardware Threads: 4
+	Total Number of Application Threads: 4
+	Executing Total Instruction Count: 200 million (200000000)
+
+Statistics: 
+	Defined Simulation Regions: 1
+	Log Every 100 Million Instructions
+	Reset Sharing Stats: 0
+
+Caches  -- Experiment: 0
+All Latencies Are Load-To-Use Latencies
+
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+
+	[Level 2] LLC  Cache Size: 4096KB  -*- Assoc: 16 -*- TPC: 4 -*- RepPol: -- Contestant Replacement Policy -- -*- Lat: 30
+
+Setting Up Replacement Policy: SBAR-Internal
+	Leader Set Size: 32
+	Counter Max Value: 1024
+	Leader Set Replacement Policy (Main): -- Contestant Replacement Policy --
+	Leader Set Replacement Policy (Aux): -- Contestant Replacement Policy --
+
+	[Level 3] MEM  Latency: 200
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/434.zeusmp.zeusmp_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/434.zeusmp.zeusmp_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/434.zeusmp.zeusmp_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/434.zeusmp.zeusmp_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/434.zeusmp.zeusmp_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/434.zeusmp.zeusmp_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/434.zeusmp.zeusmp_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/434.zeusmp.zeusmp_200M.out.dep.gz
+
+
+[CMP$im] Initialization Done...  Starting Simulation
+
+[CMP$im] Queuing App 0 Onto HW Thread: 0 At: 0
+[CMP$im] Queuing App 1 Onto HW Thread: 1 At: 0
+[CMP$im] Queuing App 2 Onto HW Thread: 2 At: 0
+[CMP$im] Queuing App 3 Onto HW Thread: 3 At: 0
+[CMP$im] Finished Requested Instruction Count 200000002  for App 1 at Time: 174450101
+[CMP$im] Finished Requested Instruction Count 200000002  for App 0 at Time: 174476107
+[CMP$im] Finished Requested Instruction Count 200000002  for App 3 at Time: 174500705
+[CMP$im] Finished Requested Instruction Count 200000002  for App 2 at Time: 174516346
+
+
+Full Run Summary: (Global Instructions: 800169505)
+	Thread ID: 0 ICOUNT: 200055084 CYC: 174516347 CPI: 0.872341 Global Cycles: 174516347 LLC Misses: 947987
+	Thread ID: 1 ICOUNT: 200091427 CYC: 174516347 CPI: 0.872183 Global Cycles: 174516347 LLC Misses: 947884
+	Thread ID: 2 ICOUNT: 200000002 CYC: 174516347 CPI: 0.872582 Global Cycles: 174516347 LLC Misses: 948387
+	Thread ID: 3 ICOUNT: 200022992 CYC: 174516347 CPI: 0.872481 Global Cycles: 174516347 LLC Misses: 947968
+
+
+Region of Interest Summary: 
+	Thread ID: 0 ICOUNT: 200000002 CYC: 174476107 CPI: 0.872381 Global Cycles: 174516347 LLC Misses: 947769
+	Thread ID: 1 ICOUNT: 200000002 CYC: 174450101 CPI: 0.87225 Global Cycles: 174516347 LLC Misses: 947516
+	Thread ID: 2 ICOUNT: 200000002 CYC: 174516346 CPI: 0.872582 Global Cycles: 174516347 LLC Misses: 948387
+	Thread ID: 3 ICOUNT: 200000002 CYC: 174500705 CPI: 0.872504 Global Cycles: 174516347 LLC Misses: 947884
+
+PIN Tool Info:
+	Max Number of Threads Supported: 130
+
+
+Workload Info:
+	Total Number of Hardware Threads: 4
+	Total Number of Application Threads: 4
+	Executing Total Instruction Count: 200 million (200000000)
+
+Statistics: 
+	Defined Simulation Regions: 1
+	Log Every 100 Million Instructions
+	Reset Sharing Stats: 0
+
+Caches  -- Experiment: 0
+All Latencies Are Load-To-Use Latencies
+
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+
+	[Level 2] LLC  Cache Size: 4096KB  -*- Assoc: 16 -*- TPC: 4 -*- RepPol: -- Contestant Replacement Policy -- -*- Lat: 30
+
+Setting Up Replacement Policy: SBAR-Internal
+	Leader Set Size: 32
+	Counter Max Value: 1024
+	Leader Set Replacement Policy (Main): -- Contestant Replacement Policy --
+	Leader Set Replacement Policy (Aux): -- Contestant Replacement Policy --
+
+	[Level 3] MEM  Latency: 200
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/436.cactusADM.benchADM_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/436.cactusADM.benchADM_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/436.cactusADM.benchADM_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/436.cactusADM.benchADM_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/436.cactusADM.benchADM_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/436.cactusADM.benchADM_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/436.cactusADM.benchADM_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/436.cactusADM.benchADM_200M.out.dep.gz
+
+
+[CMP$im] Initialization Done...  Starting Simulation
+
+[CMP$im] Queuing App 0 Onto HW Thread: 0 At: 0
+[CMP$im] Queuing App 1 Onto HW Thread: 1 At: 0
+[CMP$im] Queuing App 2 Onto HW Thread: 2 At: 0
+[CMP$im] Queuing App 3 Onto HW Thread: 3 At: 0
+[CMP$im] Finished Requested Instruction Count 200000003  for App 2 at Time: 115835898
+[CMP$im] Finished Requested Instruction Count 200000003  for App 1 at Time: 116408289
+[CMP$im] Finished Requested Instruction Count 200000003  for App 0 at Time: 117374338
+[CMP$im] Finished Requested Instruction Count 200000003  for App 3 at Time: 117405164
+
+
+Full Run Summary: (Global Instructions: 804150546)
+	Thread ID: 0 ICOUNT: 200085486 CYC: 117405165 CPI: 0.586775 Global Cycles: 117405165 LLC Misses: 831931
+	Thread ID: 1 ICOUNT: 201806358 CYC: 117405165 CPI: 0.581771 Global Cycles: 117405165 LLC Misses: 840128
+	Thread ID: 2 ICOUNT: 202258699 CYC: 117405165 CPI: 0.58047 Global Cycles: 117405165 LLC Misses: 850449
+	Thread ID: 3 ICOUNT: 200000003 CYC: 117405165 CPI: 0.587026 Global Cycles: 117405165 LLC Misses: 832599
+
+
+Region of Interest Summary: 
+	Thread ID: 0 ICOUNT: 200000003 CYC: 117374338 CPI: 0.586872 Global Cycles: 117405165 LLC Misses: 831788
+	Thread ID: 1 ICOUNT: 200000003 CYC: 116408289 CPI: 0.582041 Global Cycles: 117405165 LLC Misses: 826505
+	Thread ID: 2 ICOUNT: 200000003 CYC: 115835898 CPI: 0.579179 Global Cycles: 117405165 LLC Misses: 821503
+	Thread ID: 3 ICOUNT: 200000003 CYC: 117405164 CPI: 0.587026 Global Cycles: 117405165 LLC Misses: 832599
+
+PIN Tool Info:
+	Max Number of Threads Supported: 130
+
+
+Workload Info:
+	Total Number of Hardware Threads: 4
+	Total Number of Application Threads: 4
+	Executing Total Instruction Count: 200 million (200000000)
+
+Statistics: 
+	Defined Simulation Regions: 1
+	Log Every 100 Million Instructions
+	Reset Sharing Stats: 0
+
+Caches  -- Experiment: 0
+All Latencies Are Load-To-Use Latencies
+
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+
+	[Level 2] LLC  Cache Size: 4096KB  -*- Assoc: 16 -*- TPC: 4 -*- RepPol: -- Contestant Replacement Policy -- -*- Lat: 30
+
+Setting Up Replacement Policy: SBAR-Internal
+	Leader Set Size: 32
+	Counter Max Value: 1024
+	Leader Set Replacement Policy (Main): -- Contestant Replacement Policy --
+	Leader Set Replacement Policy (Aux): -- Contestant Replacement Policy --
+
+	[Level 3] MEM  Latency: 200
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.dep.gz
+
+
+[CMP$im] Initialization Done...  Starting Simulation
+
+[CMP$im] Queuing App 0 Onto HW Thread: 0 At: 0
+[CMP$im] Queuing App 1 Onto HW Thread: 1 At: 0
+[CMP$im] Queuing App 2 Onto HW Thread: 2 At: 0
+[CMP$im] Queuing App 3 Onto HW Thread: 3 At: 0
+[CMP$im] Finished Requested Instruction Count 200000001  for App 1 at Time: 55000753
+[CMP$im] Finished Requested Instruction Count 200000001  for App 0 at Time: 55084279
+[CMP$im] Finished Requested Instruction Count 200000001  for App 3 at Time: 55088189
+[CMP$im] Finished Requested Instruction Count 200000001  for App 2 at Time: 55294492
+
+
+Full Run Summary: (Global Instructions: 802802663)
+	Thread ID: 0 ICOUNT: 200829062 CYC: 55294493 CPI: 0.275331 Global Cycles: 55294493 LLC Misses: 56292
+	Thread ID: 1 ICOUNT: 201160052 CYC: 55294493 CPI: 0.274878 Global Cycles: 55294493 LLC Misses: 57362
+	Thread ID: 2 ICOUNT: 200000001 CYC: 55294493 CPI: 0.276472 Global Cycles: 55294493 LLC Misses: 59440
+	Thread ID: 3 ICOUNT: 200813548 CYC: 55294493 CPI: 0.275352 Global Cycles: 55294493 LLC Misses: 59140
+
+
+Region of Interest Summary: 
+	Thread ID: 0 ICOUNT: 200000001 CYC: 55084279 CPI: 0.275421 Global Cycles: 55294493 LLC Misses: 56288
+	Thread ID: 1 ICOUNT: 200000001 CYC: 55000753 CPI: 0.275004 Global Cycles: 55294493 LLC Misses: 57358
+	Thread ID: 2 ICOUNT: 200000001 CYC: 55294492 CPI: 0.276472 Global Cycles: 55294493 LLC Misses: 59440
+	Thread ID: 3 ICOUNT: 200000001 CYC: 55088189 CPI: 0.275441 Global Cycles: 55294493 LLC Misses: 59136
+
+PIN Tool Info:
+	Max Number of Threads Supported: 130
+
+
+Workload Info:
+	Total Number of Hardware Threads: 4
+	Total Number of Application Threads: 4
+	Executing Total Instruction Count: 200 million (200000000)
+
+Statistics: 
+	Defined Simulation Regions: 1
+	Log Every 100 Million Instructions
+	Reset Sharing Stats: 0
+
+Caches  -- Experiment: 0
+All Latencies Are Load-To-Use Latencies
+
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+
+	[Level 2] LLC  Cache Size: 4096KB  -*- Assoc: 16 -*- TPC: 4 -*- RepPol: -- Contestant Replacement Policy -- -*- Lat: 30
+
+Setting Up Replacement Policy: SBAR-Internal
+	Leader Set Size: 32
+	Counter Max Value: 1024
+	Leader Set Replacement Policy (Main): -- Contestant Replacement Policy --
+	Leader Set Replacement Policy (Aux): -- Contestant Replacement Policy --
+
+	[Level 3] MEM  Latency: 200
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/459.GemsFDTD.ref_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/459.GemsFDTD.ref_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/459.GemsFDTD.ref_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/459.GemsFDTD.ref_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/459.GemsFDTD.ref_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/459.GemsFDTD.ref_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/459.GemsFDTD.ref_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/459.GemsFDTD.ref_200M.out.dep.gz
+
+
+[CMP$im] Initialization Done...  Starting Simulation
+
+[CMP$im] Queuing App 0 Onto HW Thread: 0 At: 0
+[CMP$im] Queuing App 1 Onto HW Thread: 1 At: 0
+[CMP$im] Queuing App 2 Onto HW Thread: 2 At: 0
+[CMP$im] Queuing App 3 Onto HW Thread: 3 At: 0
+[CMP$im] Finished Requested Instruction Count 200000003  for App 0 at Time: 195536271
+[CMP$im] Finished Requested Instruction Count 200000003  for App 3 at Time: 195961272
+[CMP$im] Finished Requested Instruction Count 200000003  for App 2 at Time: 196072530
+[CMP$im] Finished Requested Instruction Count 200000003  for App 1 at Time: 196101159
+
+
+Full Run Summary: (Global Instructions: 800341578)
+	Thread ID: 0 ICOUNT: 200263688 CYC: 196101160 CPI: 0.979215 Global Cycles: 196101160 LLC Misses: 1678331
+	Thread ID: 1 ICOUNT: 200000003 CYC: 196101160 CPI: 0.980506 Global Cycles: 196101160 LLC Misses: 1689541
+	Thread ID: 2 ICOUNT: 200014019 CYC: 196101160 CPI: 0.980437 Global Cycles: 196101160 LLC Misses: 1688995
+	Thread ID: 3 ICOUNT: 200063868 CYC: 196101160 CPI: 0.980193 Global Cycles: 196101160 LLC Misses: 1686802
+
+
+Region of Interest Summary: 
+	Thread ID: 0 ICOUNT: 200000003 CYC: 195536271 CPI: 0.977681 Global Cycles: 196101160 LLC Misses: 1671647
+	Thread ID: 1 ICOUNT: 200000003 CYC: 196101159 CPI: 0.980506 Global Cycles: 196101160 LLC Misses: 1689541
+	Thread ID: 2 ICOUNT: 200000003 CYC: 196072530 CPI: 0.980363 Global Cycles: 196101160 LLC Misses: 1688640
+	Thread ID: 3 ICOUNT: 200000003 CYC: 195961272 CPI: 0.979806 Global Cycles: 196101160 LLC Misses: 1685200
+
+PIN Tool Info:
+	Max Number of Threads Supported: 130
+
+
+Workload Info:
+	Total Number of Hardware Threads: 4
+	Total Number of Application Threads: 4
+	Executing Total Instruction Count: 200 million (200000000)
+
+Statistics: 
+	Defined Simulation Regions: 1
+	Log Every 100 Million Instructions
+	Reset Sharing Stats: 0
+
+Caches  -- Experiment: 0
+All Latencies Are Load-To-Use Latencies
+
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+
+	[Level 2] LLC  Cache Size: 4096KB  -*- Assoc: 16 -*- TPC: 4 -*- RepPol: -- Contestant Replacement Policy -- -*- Lat: 30
+
+Setting Up Replacement Policy: SBAR-Internal
+	Leader Set Size: 32
+	Counter Max Value: 1024
+	Leader Set Replacement Policy (Main): -- Contestant Replacement Policy --
+	Leader Set Replacement Policy (Aux): -- Contestant Replacement Policy --
+
+	[Level 3] MEM  Latency: 200
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/482.sphinx3.am4_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/482.sphinx3.am4_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/482.sphinx3.am4_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/482.sphinx3.am4_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/482.sphinx3.am4_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/482.sphinx3.am4_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/482.sphinx3.am4_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/482.sphinx3.am4_200M.out.dep.gz
+
+
+[CMP$im] Initialization Done...  Starting Simulation
+
+[CMP$im] Queuing App 0 Onto HW Thread: 0 At: 0
+[CMP$im] Queuing App 1 Onto HW Thread: 1 At: 0
+[CMP$im] Queuing App 2 Onto HW Thread: 2 At: 0
+[CMP$im] Queuing App 3 Onto HW Thread: 3 At: 0
+[CMP$im] Finished Requested Instruction Count 200000001  for App 3 at Time: 258966734
+[CMP$im] Finished Requested Instruction Count 200000001  for App 1 at Time: 259057140
+[CMP$im] Finished Requested Instruction Count 200000001  for App 0 at Time: 259074449
+[CMP$im] Finished Requested Instruction Count 200000001  for App 2 at Time: 259176726
+
+
+Full Run Summary: (Global Instructions: 800298341)
+	Thread ID: 0 ICOUNT: 200069314 CYC: 259176727 CPI: 1.29543 Global Cycles: 259176727 LLC Misses: 1757127
+	Thread ID: 1 ICOUNT: 200082108 CYC: 259176727 CPI: 1.29535 Global Cycles: 259176727 LLC Misses: 1750019
+	Thread ID: 2 ICOUNT: 200000001 CYC: 259176727 CPI: 1.29588 Global Cycles: 259176727 LLC Misses: 1745116
+	Thread ID: 3 ICOUNT: 200146918 CYC: 259176727 CPI: 1.29493 Global Cycles: 259176727 LLC Misses: 1754233
+
+
+Region of Interest Summary: 
+	Thread ID: 0 ICOUNT: 200000001 CYC: 259074449 CPI: 1.29537 Global Cycles: 259176727 LLC Misses: 1756371
+	Thread ID: 1 ICOUNT: 200000001 CYC: 259057140 CPI: 1.29529 Global Cycles: 259176727 LLC Misses: 1749140
+	Thread ID: 2 ICOUNT: 200000001 CYC: 259176726 CPI: 1.29588 Global Cycles: 259176727 LLC Misses: 1745116
+	Thread ID: 3 ICOUNT: 200000001 CYC: 258966734 CPI: 1.29483 Global Cycles: 259176727 LLC Misses: 1752665
+
+PIN Tool Info:
+	Max Number of Threads Supported: 130
+
+
+Workload Info:
+	Total Number of Hardware Threads: 4
+	Total Number of Application Threads: 4
+	Executing Total Instruction Count: 200 million (200000000)
+
+Statistics: 
+	Defined Simulation Regions: 1
+	Log Every 100 Million Instructions
+	Reset Sharing Stats: 0
+
+Caches  -- Experiment: 0
+All Latencies Are Load-To-Use Latencies
+
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+
+	[Level 2] LLC  Cache Size: 4096KB  -*- Assoc: 16 -*- TPC: 4 -*- RepPol: -- Contestant Replacement Policy -- -*- Lat: 30
+
+Setting Up Replacement Policy: SBAR-Internal
+	Leader Set Size: 32
+	Counter Max Value: 1024
+	Leader Set Replacement Policy (Main): -- Contestant Replacement Policy --
+	Leader Set Replacement Policy (Aux): -- Contestant Replacement Policy --
+
+	[Level 3] MEM  Latency: 200
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/429.mcf.ref_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/429.mcf.ref_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/482.sphinx3.am4_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/482.sphinx3.am4_200M.out.dep.gz
+
+
+[CMP$im] Initialization Done...  Starting Simulation
+
+[CMP$im] Queuing App 0 Onto HW Thread: 0 At: 0
+[CMP$im] Queuing App 1 Onto HW Thread: 1 At: 0
+[CMP$im] Queuing App 2 Onto HW Thread: 2 At: 0
+[CMP$im] Queuing App 3 Onto HW Thread: 3 At: 0
+[CMP$im] Finished Requested Instruction Count 200000001  for App 2 at Time: 55990944
+[CMP$im] Finished Requested Instruction Count 200000001  for App 1 at Time: 57935337
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.dep.gz
+[CMP$im] Finished Requested Instruction Count 200000001  for App 3 at Time: 226336704
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/482.sphinx3.am4_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/482.sphinx3.am4_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/482.sphinx3.am4_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/482.sphinx3.am4_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/456.hmmer.retro_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/410.bwaves.bwaves_200M.out.dep.gz
+[CMP$im] Finished Requested Instruction Count 200000003  for App 0 at Time: 715408929
+
+
+Full Run Summary: (Global Instructions: 5903712811)
+	Thread ID: 0 ICOUNT: 200000003 CYC: 715408930 CPI: 3.57704 Global Cycles: 715408930 LLC Misses: 9010375
+	Thread ID: 1 ICOUNT: 2476720020 CYC: 715408930 CPI: 0.288853 Global Cycles: 715408930 LLC Misses: 2109438
+	Thread ID: 2 ICOUNT: 2593164489 CYC: 715408930 CPI: 0.275883 Global Cycles: 715408930 LLC Misses: 675164
+	Thread ID: 3 ICOUNT: 633828299 CYC: 715408930 CPI: 1.12871 Global Cycles: 715408930 LLC Misses: 4503225
+
+
+Region of Interest Summary: 
+	Thread ID: 0 ICOUNT: 200000003 CYC: 715408929 CPI: 3.57704 Global Cycles: 715408930 LLC Misses: 9010375
+	Thread ID: 1 ICOUNT: 200000001 CYC: 57935337 CPI: 0.289677 Global Cycles: 715408930 LLC Misses: 173092
+	Thread ID: 2 ICOUNT: 200000001 CYC: 55990944 CPI: 0.279955 Global Cycles: 715408930 LLC Misses: 64246
+	Thread ID: 3 ICOUNT: 200000001 CYC: 226336704 CPI: 1.13168 Global Cycles: 715408930 LLC Misses: 1434074
+
+PIN Tool Info:
+	Max Number of Threads Supported: 130
+
+
+Workload Info:
+	Total Number of Hardware Threads: 4
+	Total Number of Application Threads: 4
+	Executing Total Instruction Count: 200 million (200000000)
+
+Statistics: 
+	Defined Simulation Regions: 1
+	Log Every 100 Million Instructions
+	Reset Sharing Stats: 0
+
+Caches  -- Experiment: 0
+All Latencies Are Load-To-Use Latencies
+
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+
+	[Level 2] LLC  Cache Size: 4096KB  -*- Assoc: 16 -*- TPC: 4 -*- RepPol: -- Contestant Replacement Policy -- -*- Lat: 30
+
+Setting Up Replacement Policy: SBAR-Internal
+	Leader Set Size: 32
+	Counter Max Value: 1024
+	Leader Set Replacement Policy (Main): -- Contestant Replacement Policy --
+	Leader Set Replacement Policy (Aux): -- Contestant Replacement Policy --
+
+	[Level 3] MEM  Latency: 200
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/459.GemsFDTD.ref_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/459.GemsFDTD.ref_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/434.zeusmp.zeusmp_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/434.zeusmp.zeusmp_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/436.cactusADM.benchADM_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/436.cactusADM.benchADM_200M.out.dep.gz
+
+
+[CMP$im] Initialization Done...  Starting Simulation
+
+[CMP$im] Queuing App 0 Onto HW Thread: 0 At: 0
+[CMP$im] Queuing App 1 Onto HW Thread: 1 At: 0
+[CMP$im] Queuing App 2 Onto HW Thread: 2 At: 0
+[CMP$im] Queuing App 3 Onto HW Thread: 3 At: 0
+[CMP$im] Finished Requested Instruction Count 200000002  for App 1 at Time: 94127230
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.dep.gz
+[CMP$im] Finished Requested Instruction Count 200000003  for App 3 at Time: 115491220
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/436.cactusADM.benchADM_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/436.cactusADM.benchADM_200M.out.dep.gz
+[CMP$im] Finished Requested Instruction Count 200000002  for App 2 at Time: 174662472
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/434.zeusmp.zeusmp_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/434.zeusmp.zeusmp_200M.out.dep.gz
+[CMP$im] Finished Requested Instruction Count 200000003  for App 0 at Time: 194161683
+
+
+Full Run Summary: (Global Instructions: 1241932864)
+	Thread ID: 0 ICOUNT: 200000003 CYC: 194161684 CPI: 0.970808 Global Cycles: 194161684 LLC Misses: 1628326
+	Thread ID: 1 ICOUNT: 478909007 CYC: 194161684 CPI: 0.405425 Global Cycles: 194161684 LLC Misses: 494835
+	Thread ID: 2 ICOUNT: 223691755 CYC: 194161684 CPI: 0.867988 Global Cycles: 194161684 LLC Misses: 1067480
+	Thread ID: 3 ICOUNT: 339332099 CYC: 194161684 CPI: 0.572188 Global Cycles: 194161684 LLC Misses: 1386690
+
+
+Region of Interest Summary: 
+	Thread ID: 0 ICOUNT: 200000003 CYC: 194161683 CPI: 0.970808 Global Cycles: 194161684 LLC Misses: 1628326
+	Thread ID: 1 ICOUNT: 200000002 CYC: 94127230 CPI: 0.470636 Global Cycles: 194161684 LLC Misses: 337121
+	Thread ID: 2 ICOUNT: 200000002 CYC: 174662472 CPI: 0.873312 Global Cycles: 194161684 LLC Misses: 949890
+	Thread ID: 3 ICOUNT: 200000003 CYC: 115491220 CPI: 0.577456 Global Cycles: 194161684 LLC Misses: 818033
+
+PIN Tool Info:
+	Max Number of Threads Supported: 130
+
+
+Workload Info:
+	Total Number of Hardware Threads: 4
+	Total Number of Application Threads: 4
+	Executing Total Instruction Count: 200 million (200000000)
+
+Statistics: 
+	Defined Simulation Regions: 1
+	Log Every 100 Million Instructions
+	Reset Sharing Stats: 0
+
+Caches  -- Experiment: 0
+All Latencies Are Load-To-Use Latencies
+
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC iCache Size: 32KB  -*- Assoc: 4 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+	[Level 0] FLC  Cache Size: 32KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 0
+
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+	[Level 1] MLC  Cache Size: 256KB  -*- Assoc: 8 -*- TPC: 1 -*- RepPol: -- True LRU -- -*- Lat: 10
+
+	[Level 2] LLC  Cache Size: 4096KB  -*- Assoc: 16 -*- TPC: 4 -*- RepPol: -- Contestant Replacement Policy -- -*- Lat: 30
+
+Setting Up Replacement Policy: SBAR-Internal
+	Leader Set Size: 32
+	Counter Max Value: 1024
+	Leader Set Replacement Policy (Main): -- Contestant Replacement Policy --
+	Leader Set Replacement Policy (Aux): -- Contestant Replacement Policy --
+
+	[Level 3] MEM  Latency: 200
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/429.mcf.ref_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/429.mcf.ref_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/459.GemsFDTD.ref_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/459.GemsFDTD.ref_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.dep.gz
+
+Opened Binary Trace File: /net/tinker/rhadidi6/CRC/CRC_traces/436.cactusADM.benchADM_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/436.cactusADM.benchADM_200M.out.dep.gz
+
+
+[CMP$im] Initialization Done...  Starting Simulation
+
+[CMP$im] Queuing App 0 Onto HW Thread: 0 At: 0
+[CMP$im] Queuing App 1 Onto HW Thread: 1 At: 0
+[CMP$im] Queuing App 2 Onto HW Thread: 2 At: 0
+[CMP$im] Queuing App 3 Onto HW Thread: 3 At: 0
+[CMP$im] Finished Requested Instruction Count 200000002  for App 2 at Time: 98437011
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.dep.gz
+[CMP$im] Finished Requested Instruction Count 200000003  for App 3 at Time: 116833331
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/436.cactusADM.benchADM_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/436.cactusADM.benchADM_200M.out.dep.gz
+[CMP$im] Finished Requested Instruction Count 200000003  for App 1 at Time: 195280743
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/459.GemsFDTD.ref_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/459.GemsFDTD.ref_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/436.cactusADM.benchADM_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/436.cactusADM.benchADM_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/436.cactusADM.benchADM_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/436.cactusADM.benchADM_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/459.GemsFDTD.ref_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/459.GemsFDTD.ref_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/436.cactusADM.benchADM_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/436.cactusADM.benchADM_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/436.cactusADM.benchADM_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/436.cactusADM.benchADM_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/459.GemsFDTD.ref_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/459.GemsFDTD.ref_200M.out.dep.gz
+[CMP$im] Rewinding: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.trace.gz
+Opened Dep File: /net/tinker/rhadidi6/CRC/CRC_traces/401.bzip2.text_200M.out.dep.gz
+[CMP$im] Finished Requested Instruction Count 200000003  for App 0 at Time: 738170884
+
+
+Full Run Summary: (Global Instructions: 4000387768)
+	Thread ID: 0 ICOUNT: 200000003 CYC: 738170885 CPI: 3.69085 Global Cycles: 738170885 LLC Misses: 9298378
+	Thread ID: 1 ICOUNT: 703565773 CYC: 738170885 CPI: 1.04919 Global Cycles: 738170885 LLC Misses: 6442326
+	Thread ID: 2 ICOUNT: 1844889496 CYC: 738170885 CPI: 0.400117 Global Cycles: 738170885 LLC Misses: 1661548
+	Thread ID: 3 ICOUNT: 1251932496 CYC: 738170885 CPI: 0.589625 Global Cycles: 738170885 LLC Misses: 5233867
+
+
+Region of Interest Summary: 
+	Thread ID: 0 ICOUNT: 200000003 CYC: 738170884 CPI: 3.69085 Global Cycles: 738170885 LLC Misses: 9298378
+	Thread ID: 1 ICOUNT: 200000003 CYC: 195280743 CPI: 0.976404 Global Cycles: 738170885 LLC Misses: 1661441
+	Thread ID: 2 ICOUNT: 200000002 CYC: 98437011 CPI: 0.492185 Global Cycles: 738170885 LLC Misses: 375945
+	Thread ID: 3 ICOUNT: 200000003 CYC: 116833331 CPI: 0.584167 Global Cycles: 738170885 LLC Misses: 829722
+
