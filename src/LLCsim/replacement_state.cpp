@@ -536,7 +536,7 @@ INT32 CACHE_REPLACEMENT_STATE::Get_EAF_RRIP_Victim( UINT32 setIndex, Addr_t Phys
     }
 
     //Insert the evicted line paddr in EAF
-    Addr_t paddr_evicted = replSet[lruWay].paddr;
+    Addr_t paddr_evicted = replSet[rripway].paddr;
     EAF[paddr_evicted] = counter_EAF;
     counter_EAF++;
 
@@ -547,9 +547,9 @@ INT32 CACHE_REPLACEMENT_STATE::Get_EAF_RRIP_Victim( UINT32 setIndex, Addr_t Phys
     }
 
     //Assign the physical address to the line
-    replSet[lruWay].paddr = PhysicalAddr;
+    replSet[rripway].paddr = PhysicalAddr;
 
-    return lruWay;
+    return rripway;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
