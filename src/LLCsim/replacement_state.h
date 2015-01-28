@@ -50,6 +50,7 @@
 
 //EAF-RRIP
 #define BIOMODAL_PROBABILITY_EAF_RRIP   31  //[1 means 0.1%/10 means 1%] of all times
+#define LIVE_PLUS 1                         // This insert cache lines on hit at 0 instead of RRIP_MAX-1
 
 // Replacement Policies Supported
 typedef enum 
