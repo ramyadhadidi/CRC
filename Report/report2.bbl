@@ -1,0 +1,30 @@
+\begin{thebibliography}{1}
+
+\bibitem{sim}
+A.~Jaleel, R.~S. Cohn, C.-K. Luk, and B.~Jacob.
+\newblock Cmp\$im: Apin-based on-the-fly multi-core cache simulator.
+\newblock In {\em In Proc. of the 4th Workshop on Modeling, Benchmarking and
+  Simulation}.
+
+\bibitem{rrip}
+Aamer Jaleel, Kevin~B. Theobald, Jr. Simon C.~Steely, and Joel Emer.
+\newblock High performance cache replacement using re-reference interval
+  prediction (rrip).
+\newblock In {\em ISCA '10 Proceedings of the 37th annual international
+  symposium on Computer architecture}, 2010.
+
+\bibitem{eaf}
+Vivek Seshadri, Onur Mutlu, Michael~A. Kozuch, and Todd~C. Mowry.
+\newblock The evicted-address filter: a unified mechanism to address both cache
+  pollution and thrashing.
+\newblock In {\em PACT '12 Proceedings of the 21st international conference on
+  Parallel architectures and compilation techniques}.
+
+\bibitem{ship}
+Carole-Jean Wu, Aamer Jaleel, Will Hasenplaugh, Margaret Martonosi, Jr. Simon
+  C.~Steely, and Joel Emer.
+\newblock Ship: signature-based hit predictor for high performance caching.
+\newblock In {\em MICRO-44 Proceedings of the 44th Annual IEEE/ACM
+  International Symposium on Microarchitecture}, 2011.
+
+\end{thebibliography}
